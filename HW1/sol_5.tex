@@ -1,0 +1,28 @@
+%----------------------------------------------------------------------------------------
+%	SOLUTION 5
+%----------------------------------------------------------------------------------------
+\subsection*{Problem 5}
+Let $S \in \mathbb{N}$ and $P\in \mathbb{N}$ denote the number of PV modules connected in series and parallel respectively. Our objective is to deliver maximum power to the inverter. Let $V_{oc}, I_{sc}, V_{mppt}, I_{mppt}$ denote the PV modules's open circuit voltage, short-circuit current, voltage at maximum power and current at maximum power respectively and let $V_{inv}^{max}, V_{inv,mppt}^{max}, V_{inv,mppt}^{min}, I_{inv}^{max}$ denote the inverter maximum input voltage, MPPT (maximum power point tracker) voltage range maximum value, MPPT voltage range minimum value and maximum input current. In this question,
+\begin{align}\label{eq:q5_values}
+	V_{oc} &= 43.40\ V \nonumber\\
+	I_{sc} &= 4.80\ A \nonumber\\
+	V_{mppt} &= 34\ V \nonumber\\
+	I_{mppt} &= 4.40\ A \nonumber\\
+	V_{inv}^{max} &= 600\ V \nonumber\\
+	V_{inv, mppt}^{max} &= 550\ V \nonumber\\
+	V_{inv, mppt}^{min} &= 250\ V \nonumber\\
+	I_{inv}^{max} &= 11\ A.
+\end{align}
+For maximum power point operation of the PV module, we need to ensure the following:
+\begin{align*}
+	SV_{oc} &\leq V_{inv}^{max}\\
+	V_{inv,mppt}^{min} \leq SV_{mppt} &\leq V_{inv,mppt}^{max}\\
+	PI_{mppt} &\leq I_{inv}^{max}.
+\end{align*}
+Plugging in the values from~(\ref{eq:q5_values}),
+\begin{align*}
+	S &\leq 13\\
+	8 \leq S &\leq 16\\
+	P &\leq 2. 
+\end{align*}
+Therefore, from the given combinations, I would choose $(8\ S, 2\ P)$ (choice no. $2$ in question).

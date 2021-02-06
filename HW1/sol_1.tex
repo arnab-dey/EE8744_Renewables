@@ -1,0 +1,23 @@
+%----------------------------------------------------------------------------------------
+%	SOLUTION 1
+%----------------------------------------------------------------------------------------
+\subsection*{Problem 1}
+The energy of a photon can be quantified as:
+\begin{align*}
+	E &= \frac{hc}{\lambda},
+\end{align*}
+where, $E, h, c$ and $\lambda$ are energy, Planck's constant, speed of light and wavelength respectively. To create electron-hole pairs, the following condition needs to be satisfied:
+\begin{align}\label{eq:q1_cond}
+	E \geq E_{gap},
+\end{align} 
+where $E_{gap}$ is the band gap energy of the material in which the electron-hole pairs are required to be created. From~(\ref{eq:q1_cond}),
+\begin{align}\label{eq:q1_lamb_cond}
+	&\frac{hc}{\lambda} \geq E_{gap} \nonumber\\
+	\implies & \lambda \leq \frac{hc}{E_{gap}}.
+\end{align}
+Plugging in the values of $E_{gap} = 1.42\ eV,\ h=6.63\times10^{-34}\ m^2kg/s$ and $c=3\times10^8\ m/s$ in~(\ref{eq:q1_lamb_cond}),
+\begin{align*}
+	\lambda &\leq \frac{6.63\times 10^{-34}\times 3\times 10^8}{1.42\times 1.6\times 10^{-19}}\ m\\
+	&= 0.875\ \mu m.
+\end{align*}
+Therefore, a photon can have a maximum wavelength of $0.875\ \mu m$ to create electron-hole pairs in Gallium Arsenide.

@@ -1,0 +1,53 @@
+%----------------------------------------------------------------------------------------
+%	SOLUTION 2.1
+%----------------------------------------------------------------------------------------
+\subsection*{Problem 2.1}
+The system needs to deliver $4000\ \text{kWhr}/\text{yr}$ energy. Now, Las Vegas receives $6.4\ \text{kWhr}/\text{m}^2\text{day}$ of average insolation. It can be interpreted as $6.4 \text{ hr/day}$ of $1 \text{kW}/\text{m}^2$ solar irradiation. Therefore, the AC rated power (kW) of the system should be
+\begin{align*}
+	P_{ac} &= \frac{4000}{365\times 6.4}\\
+	&= 1.71.
+\end{align*}
+%----------------------------------------------------------------------------------------
+%	SOLUTION 2.2
+%----------------------------------------------------------------------------------------
+\subsection*{Problem 2.2}
+We know that,
+\begin{align}
+	P_{ac} &= P_{dc,stc}\left[1-((T-25)l_{t})\right](1-l_{d})(1-l_{m})\eta_{inv},
+\end{align}
+where, $P_{dc,stc}, T, l_{t}, l_{d}, l_{m}$ and $\eta_{inv}$ are DC power (kW) at STC (standard test condition), cell temperature, percentage drop in voltage/$^{\circ}$C, percentage loss due to dirt, percentage loss due to cell condition mismatch and inverter efficiency respectively.
+
+Plugging in the values of $P_{ac}=1.71\ \text{kW}, T=26.9^{\circ}\text{C}, l_t = 0.0036, l_d=0.03, l_m=0.03, \eta_{inv}=0.92$, we get
+\begin{align*}
+	P_{dc,stc} &= \frac{1.71}{0.928\times 0.97 \times 0.97\times 0.92}\\
+	&= 2.13.
+\end{align*}
+%----------------------------------------------------------------------------------------
+%	SOLUTION 2.3
+%----------------------------------------------------------------------------------------
+\subsection*{Problem 2.3}
+Let $A\in \mathbb{R}$ denote the required area (m$^2$)of the system. We previously calculated the DC power, $P_{dc,stc}$ kW, under STC. This power has to come from a system with $A$ m$^2$ area with $1$ kW/m$^2$ irradiation. If the PV module efficiency is $13$\%, then,
+\begin{align*}
+	&P_{dc,stc} = A\times 0.13\\
+	\implies & A = \frac{2.13}{0.13}\\
+	\implies & A = 16.38.
+\end{align*}
+%----------------------------------------------------------------------------------------
+%	SOLUTION 2.4
+%----------------------------------------------------------------------------------------
+\subsection*{Problem 2.4}
+DC output power of the system is $P_{ac}/\eta_{inv} = 1.86$ kW. Therefore, total capital cost (\$) of installation is $C = 6\times 1860 = 11160$.
+
+Interest rate, $d$ is $0.06$ and duration of investment is $n=30$ years.
+
+The renewable energy credit pays the owner \$$0.05$/kWhr generated. In the question, it is not clear that if this payment is done upfront or annual. Here I assume that the payment of credit is annual. Let $A \in \mathbb{R}$ denote the annual installment for the loan. Therefore, the net present value of the system is
+\begin{align*}
+	&C = A\frac{(1+d)^n-1}{d(1+d)^n}\\
+	\implies & A = C\frac{d(1+d)^n}{(1+d)^n-1}\\
+	\implies & A = \frac{(11160)(0.06)(1.06)^{30}}{(1.06)^{30}-1}\\
+	\implies & A = 810.76.
+\end{align*} 
+Annual energy yield is $4000$ kWhr. Therefore, considering the renewable energy credit, the cost of electricity should be
+\begin{align*}
+	\text{cost of electricity (\$/kWhr)} = \frac{810.76}{4000} - 0.05 = 0.153.
+\end{align*}
