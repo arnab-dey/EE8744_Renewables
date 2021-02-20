@@ -2,3 +2,35 @@
 %	SOLUTION 5
 %----------------------------------------------------------------------------------------
 \subsection*{Problem 5}
+It is given that the wind power random variable $V$ follows uniform distribution as follows
+\begin{align*}
+	V \sim U(5,20).
+\end{align*}
+Therefore the PDF and CDF is given by
+\begin{align*}
+	f_V(v) &= \begin{cases}
+		\frac{1}{15},\ v \in [5,20]\\
+		0,\ \text{otherwise}
+	\end{cases}\\
+	F_V(v) &= \begin{cases}
+		0,\ v < 5,\\
+		\frac{v-5}{15},\ v \in [5,20],\\
+		1,\ v > 20.
+	\end{cases}
+\end{align*}
+Now, it is given that
+\begin{align*}
+	V_c &= 0\\
+	V_r &= 5\\
+	V_F &= 15\\
+	P_{rated} &= 1000 \text{ W}.
+\end{align*}
+Therefore,
+\begin{align*}
+	P(v\geq 5) &= 1-F_V(5) = 1\\
+	P(v \geq 15) &= 1-F_V(15) = 0.33.
+\end{align*}
+It is not clear if the question asks for annual energy yield at rated power. I assume that the question asks for annual energy yield at rated power. Therefore, annual energy that the wind turbine would generate is
+\begin{align*}
+	8670(1-0.33)(1000) = 5.87\times 10^6 \text{ W-h}.
+\end{align*}

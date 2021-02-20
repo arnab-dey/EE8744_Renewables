@@ -1,4 +1,18 @@
 %----------------------------------------------------------------------------------------
-%	SOLUTION 2.1
+%	SOLUTION 2
 %----------------------------------------------------------------------------------------
-\subsection*{Problem 2.1}
+\subsection*{Problem 2}
+If the wind velocity, $V$, follows Rayleigh distribution, then the PDF is given by:
+\begin{align*}
+	f_V(v) &= \frac{2v}{c^2}e^{-\frac{v^2}{c^2}},
+\end{align*}
+where $c=\frac{2\mathbb{E}[v]}{\sqrt{\pi}}$. In this question, $\bar{V}=\mathbb{E}[v]=8$ m/s. Therefore, it can be calculated that the CDF is given by:
+\begin{align*}
+	F_V(v) &= 1-e^{-\frac{\pi}{4}\left(\frac{v}{\bar{V}}\right)^2} = 1-e^{-\frac{\pi}{4}\left(\frac{v}{8}\right)^2}.
+\end{align*}
+Therefore, the probability that the wind speed are between $6.5$ and $7.5$ m/s is:
+\begin{align*}
+	P(6.5 \leq v \leq 7.5) &= \int_{6.5}^{7.5}f_V(v)\text{d}v\\
+	&= F_V(7.5)-F_V(6.5)\\
+	&= 0.094.
+\end{align*}

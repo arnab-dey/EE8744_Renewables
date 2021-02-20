@@ -2,3 +2,37 @@
 %	SOLUTION 3.1
 %----------------------------------------------------------------------------------------
 \subsection*{Problem 3.1}
+Assuming that the time to failure random variable, $T$, follows exponential distribution, the PDF of $T$ is:
+\begin{align*}
+	f_T(t) &= \begin{cases}
+		\lambda e^{-\lambda t},\ t \geq 0\\
+		0,\ t < 0,
+	\end{cases}
+\end{align*}
+where, $\lambda$ is the failure rate.
+The CDF is given by:
+\begin{align*}
+	F_T(t) &= \int_{-\infty}^{t}f_T(t)\text{d}t = 1-e^{-\lambda t}.
+\end{align*}
+In this question, $\lambda = 4.28\times 10^{-4}$ hr$^{-1}$.
+
+Therefore, the probability that the turbine survives one month of continuous operation is given by:
+\begin{align*}
+	P(t > 30\times 24) &= 1-F_T(720) = 0.735.
+\end{align*}
+%----------------------------------------------------------------------------------------
+%	SOLUTION 3.2
+%----------------------------------------------------------------------------------------
+\subsection*{Problem 3.2}
+The mean time to failure is given by:
+\begin{align*}
+	\mathbb{E}[T] = \frac{1}{\lambda} = 2336.45\text{ hr}.
+\end{align*}
+%----------------------------------------------------------------------------------------
+%	SOLUTION 3.3
+%----------------------------------------------------------------------------------------
+\subsection*{Problem 3.3}
+The probability that the turbine will fail between third and second month is:
+\begin{align*}
+	P(2\times 720 \leq t \leq 3\times 720) &= F_T(2160)-F_T(1440) = 0.143.
+\end{align*}

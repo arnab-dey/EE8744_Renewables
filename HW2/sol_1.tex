@@ -1,4 +1,28 @@
 %----------------------------------------------------------------------------------------
-%	SOLUTION 1
+%	SOLUTION 1.1
 %----------------------------------------------------------------------------------------
-\subsection*{Problem 1}
+\subsection*{Problem 1.1}
+The air density is given by:
+\begin{align}\label{eq:q1_density}
+	\rho &= \frac{(28.97)10^{-3}(1.013\times 10^5)P_{atm}}{(8.314)(273+T_c)},
+\end{align}
+where, $P_{atm}$ is atmospheric pressure (unit \textit{atm}), $T_c$ is temperature in $^{\circ}C$.
+
+Therefore, from~(\ref{eq:q1_density}), at $1$ atm and $30^{\circ}$C the air density is $1.165$ kg/m$^3$.
+%----------------------------------------------------------------------------------------
+%	SOLUTION 1.2
+%----------------------------------------------------------------------------------------
+\subsection*{Problem 1.2}
+$P_{atm}$ can be calculated as follows:
+\begin{align}\label{eq:q1_pressure}
+P_{atm} &= P_0e^{-\frac{(28.97)10^{-3}gz}{(8.314)(273+T_c)}},
+\end{align}
+where, $P_{0}$ is atmospheric pressure at the sea level ($1$ atm), $T_c$ is temperature in $^{\circ}C$, $g=9.81$ m/s$^2$, $z$ is the elevation from sea level in meter.
+
+Therefore, from~(\ref{eq:q1_pressure}), at an elevation of $z=2000$ m and at $T_c=15^{\circ}$C the air pressure is $P_{atm}=0.79$ atm. Therefore, from~(\ref{eq:q1_density}), the air density is $0.968$ kg/m$^3$.
+%----------------------------------------------------------------------------------------
+%	SOLUTION 1.3
+%----------------------------------------------------------------------------------------
+\subsection*{Problem 1.3}
+From~(\ref{eq:q1_pressure}), at an elevation of $z=2000$ m and at $T_c=5^{\circ}$C the air pressure is $P_{atm}=0.782$ atm. Therefore, from~(\ref{eq:q1_density}), the air density is $0.993$ kg/m$^3$.
+

@@ -2,3 +2,33 @@
 %	SOLUTION 4
 %----------------------------------------------------------------------------------------
 \subsection*{Problem 4}
+The power from the wind turbine is given by:
+\begin{align*}
+	P &= \frac{1}{2}\rho A V^3.
+\end{align*}
+Now, it is given that the PDF of the random variable of wind speed, $V$ is:
+\begin{align*}
+	f_V(v) &= \frac{2v}{c^2}e^{-\frac{v^2}{c^2}},
+\end{align*}
+where, $c=\frac{2\mathbb{E}[V]}{\sqrt{\pi}}$ and in this question, $\mathbb{E}[V] = 6$ m/s. We need to find out the average power, i.e. $\mathbb{E}[P]$. Now,
+\begin{align*}
+	\mathbb{E}[P] &= \frac{1}{2}\rho A \mathbb{E}[V^3].
+\end{align*}
+Let us find, $\mathbb{E}[V^3]$ first. For this I will use moment generating function of $f_V(v)$ which is given as:
+\begin{align*}
+	M_V(s) &= \mathbb{E}[e^sV] = 1+\sigma s e^{\sigma^2s^2/2}\sqrt{\frac{\pi}{2}}\left(erf\left(\frac{\sigma s}{\sqrt{2}}+1\right)\right),
+\end{align*}
+where, $\sigma = \frac{c}{\sqrt{2}}$, $erf(x) = \frac{2}{\sqrt{\pi}}\int_{0}^{x}e^{-t^2}\text{d}t$ is the Gauss error function.
+
+Now, we know that
+\begin{align*}
+	\mathbb{E}[V^3] &= \frac{\text{d}^3}{\text{d}s^3}M_V(s)\vert_{s=0}.
+\end{align*}
+Carrying out the derivatives (skipping here to conserve space) we can find that
+\begin{align*}
+	\mathbb{E}[P] &= 1.92\frac{1}{2}\rho A (\mathbb{E}[V])^3.
+\end{align*}
+Therefore, the average power, normalized by area is
+\begin{align*}
+	P_{avg} &= \frac{\mathbb{E}[P]}{A} = 1.92\frac{1}{2}\rho(\mathbb{E}[V])^3 = 254.016\text{ W}.
+\end{align*}
