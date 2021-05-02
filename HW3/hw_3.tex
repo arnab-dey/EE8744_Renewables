@@ -1,0 +1,46 @@
+%----------------------------------------------------------------------------------------
+%	HOMEWORK ASSIGNMENT EE8744
+%----------------------------------------------------------------------------------------
+
+%----------------------------------------------------------------------------------------
+%	PROLOUGE 
+%----------------------------------------------------------------------------------------
+\documentclass[a4paper, 11pt]{article}
+\usepackage[scale=0.85]{geometry} 		% Reduce document margins
+\usepackage{hyperref} 					% Required for hyperlinks i.e. e-mail %
+\usepackage{titlesec} 					% Used to customize the \section command
+\usepackage[T1]{fontenc}				% Used to have both Bold and Small caps in heading
+\usepackage{amsmath}					% Used to write equations
+\usepackage{amssymb}					% Used to write math symbols e.g. R = real number set
+\usepackage{autobreak}
+\usepackage{graphicx}					% Used to include images
+\usepackage{tabularx} 					% For custom table %
+\usepackage{mathtools}					% For define notation
+\allowdisplaybreaks
+%----------------------------------------------------------------------------------------
+%	CUSTOM MACRO DEFINITION AND ENVIRONMENT MODIFICATION
+%----------------------------------------------------------------------------------------
+\titleformat{\section}{\bfseries\Large\scshape\filcenter}{}{0em}{}[{\titlerule[1pt]}] % Text formatting of sections
+\titlespacing{\section}{0pt}{3pt}{3pt} % Spacing around sections
+\pagestyle{empty} % Removes page numbering
+\newcommand{\xVec}{\ensuremath{\boldsymbol{x}}}
+\newcommand{\wVec}{\ensuremath{\boldsymbol{w}}}
+\newcommand{\muVec}{\ensuremath{\boldsymbol{\mu}}}
+\newcommand{\mVec}{\ensuremath{\boldsymbol{m}}}
+\newcommand{\sVec}{\ensuremath{\boldsymbol{S}}}
+\newcommand{\sigmaVec}{\ensuremath{\boldsymbol{\sigma}}}
+\newcommand{\SigmaVec}{\ensuremath{\boldsymbol{\Sigma}}}
+\DeclareMathOperator*{\minimize}{minimize}
+%----------------------------------------------------------------------------------------
+%	MAIN BODY
+%----------------------------------------------------------------------------------------
+\begin{document}
+	\input{header}
+    \input{sol_1}
+    \input{sol_2}
+    \input{sol_3}
+    \input{sol_4}
+    %\input{sol_5}
+    %\input{problem_2}
+    %\input{solution_2}
+\end{document}

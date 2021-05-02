@@ -1,0 +1,264 @@
+%----------------------------------------------------------------------------------------
+%	SOLUTION 3.1
+%----------------------------------------------------------------------------------------
+\subsection*{Problem 3}
+In the $\alpha-\beta$ reference frame, the network and the inverter terminal voltages are given as:
+\begin{align}\label{eq:e_alpha_beta}
+	e_{\alpha} &= \sqrt{2}E\cos \omega_et \nonumber\\
+	e_{\beta} &= \sqrt{2}E\sin \omega_et,
+\end{align}
+and
+\begin{align}\label{eq:v_alpha_beta}
+	v_{\alpha} &= \sqrt{2}V\cos \omega_it \nonumber\\
+	v_{\beta} &= \sqrt{2}V\sin \omega_it.
+\end{align}
+The reference angle difference is given by:
+\begin{align}\label{eq:delta}
+	\delta = \theta_i-\theta_e,
+\end{align}
+where, $\theta_i = \omega_it$ and $\theta_e = \omega_et$. The droop control equations are given by:
+\begin{align}\label{eq:droop}
+	V &= V_{nom} - m_q(\overline{Q}-Q^*), \nonumber\\
+	\omega_i &= \omega_{nom} - m_p(\overline{P}-P^*),
+\end{align}
+where the $\overline{P}, \overline{Q}$ are the filtered active and reactive powers and their dynamics are given by:
+\begin{align}\label{eq:filter}
+	\dot{\overline{P}} &= \omega_c(\overline{P}-P), \nonumber\\
+	\dot{\overline{Q}} &= \omega_c(\overline{Q}-Q),
+\end{align}
+where $P,Q$ are instantaneous active and reactive power at the inverter terminal. Therefore, from Eq.~\ref{eq:droop} and Eq.~\ref{eq:filter}, we can derive that,
+\begin{align}\label{eq:v_dot_delta_dot}
+	\dot{V} &= -m_q(\dot{\overline{Q}}) \nonumber\\
+	&= -m_q\omega_c(\overline{Q}-Q), \nonumber\\
+	\dot{\theta_i} &= \omega_i = \omega_{nom}-m_p(\overline{P}-P^*), \nonumber\\
+	\dot{\delta} &= \omega_{nom}-\omega_e - m_p(\overline{P}-P^*).
+\end{align}
+%----------------------------------------------------------------------------------------
+%	SOLUTION 3.1
+%----------------------------------------------------------------------------------------
+\subsection*{Problem 3.i}
+In the d-q reference frame, as shown in Fig.~(1) in the question,
+\begin{align}\label{eq:e_d_q}
+	\begin{bmatrix}
+		e_d\\e_q
+	\end{bmatrix} &= \begin{bmatrix}
+		\cos \theta_i & \sin \theta_i\\
+		-\sin \theta_i & \cos \theta_i
+	\end{bmatrix}\begin{bmatrix}
+		e_{\alpha}\\e_{\beta}
+	\end{bmatrix} \nonumber\\
+	&= \sqrt{2}E\begin{bmatrix}
+	\cos \theta_i & \sin \theta_i\\
+	-\sin \theta_i & \cos \theta_i
+	\end{bmatrix}\begin{bmatrix}
+		\cos \theta_e\\\sin \theta_e
+	\end{bmatrix} \nonumber\\
+	&= \sqrt{2}E\begin{bmatrix}
+		\cos \theta_i \cos \theta_e + \sin \theta_i \sin \theta_e\\
+		-\cos \theta_e \sin \theta_i + \sin \theta_e \cos \theta_i
+	\end{bmatrix} \nonumber \\
+	&= \begin{bmatrix}
+		\sqrt{2}E \cos \delta\\
+		-\sqrt{2}E \sin \delta
+	\end{bmatrix}.
+\end{align}
+Before proceeding, let us derive $v_d, v_q$ also, which will be required later.
+\begin{align}\label{eq:v_d_v_q}
+	\begin{bmatrix}
+		v_d\\v_q
+	\end{bmatrix} &= \begin{bmatrix}
+	\cos \theta_i & \sin \theta_i\\
+	-\sin \theta_i & \cos \theta_i
+	\end{bmatrix}\begin{bmatrix}
+	v_{\alpha}\\v_{\beta}
+	\end{bmatrix} \nonumber\\
+	&= \sqrt{2}V\begin{bmatrix}
+	\cos \theta_i & \sin \theta_i\\
+	-\sin \theta_i & \cos \theta_i
+	\end{bmatrix}\begin{bmatrix}
+	\cos \theta_i\\\sin \theta_i
+	\end{bmatrix} \nonumber\\
+	&= \begin{bmatrix}
+		\sqrt{2}V\\0
+	\end{bmatrix}.
+\end{align}
+%----------------------------------------------------------------------------------------
+%	SOLUTION 3.2
+%----------------------------------------------------------------------------------------
+\subsection*{Problem 3.ii}
+We know that, for a vector $[x_a\ x_b\ x_c]^T$ represented in $3$-phase domain can be transformed to d-q axis (at an angle $\theta_i$) with amplitude preservation in the following way:
+\begin{align*}
+	\begin{bmatrix}
+		x_d\\x_q
+	\end{bmatrix} &= \frac{2}{3}\Gamma_{dq}\begin{bmatrix}
+		x_a\\x_b\\x_c
+	\end{bmatrix},
+\end{align*}
+where,
+\begin{align*}
+	\Gamma_{dq} &= \begin{bmatrix}
+		\cos \theta_i & \cos (\theta_i - \frac{2\pi}{3}) & \cos (\theta_i + \frac{2\pi}{3})\\
+		-\sin \theta_i & -\sin (\theta_i - \frac{2\pi}{3}) & -\sin (\theta_i + \frac{2\pi}{3})
+	\end{bmatrix}.
+\end{align*}
+The inverse transform can be shown to be:
+\begin{align*}
+	\begin{bmatrix}
+		x_a\\x_b\\x_c
+	\end{bmatrix} &= \Gamma_{dq}^T \begin{bmatrix}
+		x_d\\x_q
+	\end{bmatrix}.
+\end{align*}
+Let us derive $\frac{\text{d}}{\text{d}t}\Gamma_{dq}^T$ first as it will be required later.
+\begin{align*}
+	\frac{\text{d}}{\text{d}t} \Gamma_{dq}^T &= \dot{\theta_i}\begin{bmatrix}
+		-\sin \theta_i & \cos \theta_i\\
+		-\sin (\theta_i-\frac{2\pi}{3}) & -\cos (\theta_i-\frac{2\pi}{3})\\
+		-\sin (\theta_i+\frac{2\pi}{3}) & -\cos (\theta_i+\frac{2\pi}{3}) 
+	\end{bmatrix} \\
+	&= \dot{\theta_i} \Gamma_{dq}^T \begin{bmatrix}
+		0 & -1\\1 & 0
+	\end{bmatrix}.
+\end{align*}
+Now, using KVL in the inverter, RL, and network model, we get:
+\begin{align*}
+	\begin{bmatrix}
+		v_a\\v_b\\v_c
+	\end{bmatrix} &= R_f \begin{bmatrix}
+		i_a\\i_b\\i_c
+	\end{bmatrix} + L_f \frac{\text{d}}{\text{d}t}\begin{bmatrix}
+		i_a\\i_b\\i_c
+	\end{bmatrix}+\begin{bmatrix}
+		e_a\\e_b\\e_c
+	\end{bmatrix}.
+\end{align*}
+Transforming all the vectors to d-q axis, we get:
+\begin{align}\label{eq:i_d_i_q_ss_model}
+	& \Gamma_{dq}^T\begin{bmatrix}
+		v_d\\v_q
+	\end{bmatrix} = R_f\Gamma_{dq}^T\begin{bmatrix}
+		i_d\\i_q
+	\end{bmatrix} + L_f \frac{\text{d}}{\text{d}t}\left(\Gamma_{dq}^T\begin{bmatrix}
+		i_d\\i_q
+	\end{bmatrix}\right)+\Gamma_{dq}^T\begin{bmatrix}
+		e_d\\e_q
+	\end{bmatrix} \nonumber\\
+	\implies & \begin{bmatrix}
+		v_d\\v_q
+	\end{bmatrix} = R_f \begin{bmatrix}
+		i_d\\i_q
+	\end{bmatrix} + L_f \dot{\theta_i}\begin{bmatrix}
+		0 & -1\\1 & 0
+	\end{bmatrix}\begin{bmatrix}
+		i_d\\i_q
+	\end{bmatrix} + L_f \begin{bmatrix}
+		\dot{i_d}\\\dot{i_q}
+	\end{bmatrix} + \begin{bmatrix}
+		e_d\\e_q
+	\end{bmatrix} \nonumber\\
+	\implies & \begin{bmatrix}
+		\dot{i_d}\\ \dot{i_q}
+	\end{bmatrix} = -\frac{R_f}{L_f}\begin{bmatrix}
+		i_d\\i_q
+	\end{bmatrix}-\dot{\theta_i}\begin{bmatrix}
+		-i_q\\i_d
+	\end{bmatrix}+\frac{1}{L_f}\begin{bmatrix}
+		v_d\\v_q
+	\end{bmatrix}-\frac{1}{L_f}\begin{bmatrix}
+		e_d\\e_q
+	\end{bmatrix} \nonumber\\
+	\implies & \begin{bmatrix}
+	\dot{i_d}\\ \dot{i_q}
+	\end{bmatrix} = \begin{bmatrix}
+		-\frac{R_f}{L_f} & \dot{\theta_i}\\
+		-\dot{\theta_i} & -\frac{R_f}{L_f}
+	\end{bmatrix} \begin{bmatrix}
+		i_d\\i_q
+	\end{bmatrix} + \frac{1}{L_f}\begin{bmatrix}
+		\sqrt{2}V-e_d\\-e_q
+	\end{bmatrix}.
+\end{align}
+%----------------------------------------------------------------------------------------
+%	SOLUTION 3.3
+%----------------------------------------------------------------------------------------
+\subsection*{Problem 3.iii}
+Using~\ref{eq:v_d_v_q}, we can derive the instantaneous active power at the inverter terminal as follows:
+\begin{align}
+	P &= \frac{3}{2}(v_di_d+v_qi_q) \nonumber\\
+	&= \frac{3}{2}(\sqrt{2}Vi_d).
+\end{align}
+Similarly the instantaneous reactive power is:
+\begin{align*}
+	Q &= \frac{3}{2}(-v_di_q+v_qi_d) \nonumber\\
+	&= -\frac{3}{2}\sqrt{2}Vi_q.
+\end{align*}
+%----------------------------------------------------------------------------------------
+%	SOLUTION 3.4
+%----------------------------------------------------------------------------------------
+\subsection*{Problem 3.iv}
+\begin{align}\label{eq:dyn_eqn}
+	\dot{\delta} &= f_{\delta} = \omega_{nom}-\omega_e - m_p(\overline{P}-P^*) \nonumber\\
+	\dot{V} &= f_v = -m_q\omega_c(\overline{Q}-Q) \nonumber\\
+	&= -m_q\omega_c\left(\frac{V_{nom}-V}{m_q}+Q^*\right)+m_q\omega_cQ \nonumber\\
+	&= \omega_cV-\omega_cV_{nom}-m_q\omega_c\left(\frac{3}{2}\sqrt{2}Vi_q+Q^*\right) \nonumber\\
+	\dot{i_d} &= f_{i_d} = -\frac{R_f}{L_f}i_d+\dot{\theta_i}i_q+\frac{1}{L_f}(\sqrt{2}V-e_d) \nonumber\\
+	&= -\frac{R_f}{L_f}i_d + \omega_i i_q + \frac{\sqrt{2}}{L_f}(V-E\cos \delta) \nonumber\\
+	\dot{i_q} &= f_{i_q} = -\dot{\theta_i}i_d-\frac{R_f}{L_f}i_q+\frac{1}{L_f}(-e_q)\nonumber\\
+	&= -\omega_i i_d-\frac{R_f}{L_f}i_q + \frac{\sqrt{2}}{L_f}(E\sin \delta) \nonumber\\
+	\dot{\overline{P}} &= f_{\overline{P}} = \omega_c(\overline{P}-P) = \omega_c\left(\overline{P}-\frac{3}{2}\sqrt{2}Vi_d\right)
+\end{align}
+%----------------------------------------------------------------------------------------
+%	SOLUTION 3.5
+%----------------------------------------------------------------------------------------
+\subsection*{Problem 3.v}
+In equilibria,
+\begin{align*}
+	\dot{\delta} &= 0\\
+	\dot{V} &= 0\\
+	\dot{i_d} &= 0\\
+	\dot{i_q} &= 0\\
+	\dot{\overline{P}} &= 0.
+\end{align*}
+Therefore, from~\ref{eq:dyn_eqn}, we get:
+\begin{align*}
+	\omega_{nom} - \omega_c -m_p(\overline{P}_{eq}-P^*) &= 0,\\
+	V_{eq}-V_{nom}-m_q\left(\frac{3}{2}\sqrt{2}V_{eq}i_{q,eq}+Q^*\right) &= 0,\\
+	-\frac{R_f}{L_f}i_{d,eq}+\omega_i i_{q,eq}+\frac{\sqrt{2}}{L_f}(V_{eq}-E\cos \delta_{eq}) &= 0,\\
+	-\omega_i i_{d,eq} -\frac{R_f}{L_f}i_{q,eq} + \frac{\sqrt{2}}{L_f}(E\sin \delta_{eq}) &= 0,\\
+	\overline{P}_{eq}-\frac{3}{2}\sqrt{2}V_{eq}i_{d,eq} &= 0.
+\end{align*}
+%----------------------------------------------------------------------------------------
+%	SOLUTION 3.6
+%----------------------------------------------------------------------------------------
+\subsection*{Problem 3.vi}
+From Eq.~\ref{eq:dyn_eqn} and Eq.~\ref{eq:v_dot_delta_dot}, we get:
+\begin{align*}
+	\dot{i_d} &= f_{i_d} = -\frac{R_f}{L_f}i_d + \left(\omega_{nom}-m_p(\overline{P}-P^*)\right)i_q+\frac{\sqrt{2}}{L_f}(V-E\cos\delta)\\
+	\dot{i_q} &= f_{i_q} = -\left(\omega_{nom}-m_p(\overline{P}-P^*)\right)i_d - \frac{R_f}{L_f}i_q+\frac{\sqrt{2}}{L_f}(E\sin\delta)
+\end{align*}
+Therefore, the linearized model of Eq.~\ref{eq:dyn_eqn} is given as follows:
+\begin{align*}
+	&\begin{bmatrix}
+		\Delta\dot{\delta}\\\Delta\dot{V}\\\Delta\dot{i_d}\\\Delta\dot{i_q}\\\Delta\dot{\overline{P}}
+	\end{bmatrix} = \begin{bmatrix}
+		\frac{\partial f_{\delta}}{\partial \delta}\Big\rvert_{eq} & \frac{\partial f_{\delta}}{\partial V}\Big\rvert_{eq} & \frac{\partial f_{\delta}}{\partial i_d}\Big\rvert_{eq} & \frac{\partial f_{\delta}}{\partial i_q}\Big\rvert_{eq} & \frac{\partial f_{\delta}}{\partial \overline{P}}\Big\rvert_{eq}\\
+		\frac{\partial f_{V}}{\partial \delta}\Big\rvert_{eq} & 		\frac{\partial f_{V}}{\partial V}\Big\rvert_{eq} & 		\frac{\partial f_{V}}{\partial i_d}\Big\rvert_{eq} & 		\frac{\partial f_{V}}{\partial i_q}\Big\rvert_{eq} & 		\frac{\partial f_{V}}{\partial \overline{P}}\Big\rvert_{eq}\\
+		\frac{\partial f_{i_d}}{\partial \delta}\Big\rvert_{eq} & 		\frac{\partial f_{i_d}}{\partial V}\Big\rvert_{eq} & 		\frac{\partial f_{i_d}}{\partial i_d}\Big\rvert_{eq} & 		\frac{\partial f_{i_d}}{\partial i_q}\Big\rvert_{eq} & 		\frac{\partial f_{i_d}}{\partial \overline{P}}\Big\rvert_{eq}\\
+		\frac{\partial f_{i_q}}{\partial \delta}\Big\rvert_{eq} & 		\frac{\partial f_{i_q}}{\partial V}\Big\rvert_{eq} & 		\frac{\partial f_{i_q}}{\partial i_d}\Big\rvert_{eq} & 		\frac{\partial f_{i_q}}{\partial i_q}\Big\rvert_{eq} & 		\frac{\partial f_{i_q}}{\partial \overline{P}}\Big\rvert_{eq}\\
+		\frac{\partial f_{\overline{P}}}{\partial \delta}\Big\rvert_{eq} & \frac{\partial f_{\overline{P}}}{\partial V}\Big\rvert_{eq} & \frac{\partial f_{\overline{P}}}{\partial i_d}\Big\rvert_{eq} & \frac{\partial f_{\overline{P}}}{\partial i_q}\Big\rvert_{eq} & \frac{\partial f_{\overline{P}}}{\partial \overline{P}}\Big\rvert_{eq}
+	\end{bmatrix}\begin{bmatrix}
+	\Delta\delta\\\Delta V\\\Delta i_d\\\Delta i_q\\\Delta \overline{P}
+	\end{bmatrix}\\
+	&= \begin{bmatrix}
+			0 & 0 & 0 & 0 & -m_p\\
+			0 & \omega_c-m_q\omega_c\frac{3}{2}\sqrt{2}i_{q,eq} & 0 & -m_q\omega_c\frac{3}{2}\sqrt{2}V_{eq} & 0\\
+			\frac{\sqrt{2}}{L_f}E\sin \delta_{eq} & \frac{\sqrt{2}}{L_f} & -\frac{R_f}{L_f} & \omega_{nom}-m_p(\overline{P}_{eq}-P^*) & -m_pi_{q,eq}\\
+			\frac{\sqrt{2}}{L_f}E\cos\delta_{eq} & 0 & -\left(\omega_{nom}-m_p(\overline{P}_{eq}-P^*)\right) & -\frac{R_f}{L_f} & m_pi_{d,eq}\\
+			0 & -\frac{3}{2}\sqrt{2}\omega_c i_{d,eq} & -\frac{3}{2}\sqrt{2}V_{eq} & 0 & \omega_c
+		\end{bmatrix}\begin{bmatrix}
+	\Delta\delta\\\Delta V\\\Delta i_d\\\Delta i_q\\\Delta \overline{P}
+\end{bmatrix}\\
+&= A\begin{bmatrix}
+\Delta\delta\\\Delta V\\\Delta i_d\\\Delta i_q\\\Delta \overline{P}
+\end{bmatrix}
+\end{align*}

@@ -1,0 +1,78 @@
+%----------------------------------------------------------------------------------------
+%	SOLUTION 2
+%----------------------------------------------------------------------------------------
+\subsection*{Problem 2}
+We know that for any vector $[x_a\ x_b\ x_c]^T$ in $3$-phase time domain can be transformed to $\alpha-\beta$ domain, with amplitude preservation, as follows:
+\begin{align*}
+	\begin{bmatrix}
+		x_{\alpha}\\x_{\beta}
+	\end{bmatrix}&= T\begin{bmatrix}
+	x_a\\x_b\\x_c
+	\end{bmatrix},
+\end{align*}
+where,
+\begin{align*}
+	T &= \frac{2}{3}\begin{bmatrix}
+		1 & -\frac{1}{2} & -\frac{1}{2}\\
+		0 & \frac{\sqrt{3}}{2} & -\frac{\sqrt{3}}{2}
+	\end{bmatrix}.
+\end{align*}
+The inverse transform can be obtained using pseudo-inverse of $T$. We can use singular value decomposition (SVD) to derive the pseudo-inverse of $T$. Using MATLAB, we get the following SVD components:
+\begin{align*}
+	T = USV^T,
+\end{align*}
+where,
+\begin{align*}
+	U &= \begin{bmatrix}
+		0 & -1\\-1 & 0
+	\end{bmatrix},\\
+	S &= \begin{bmatrix}
+		\frac{\sqrt{2}}{\sqrt{3}} & 0\\0 & \frac{\sqrt{2}}{\sqrt{3}}
+	\end{bmatrix},\\
+	V &= \begin{bmatrix}
+		0 & -\frac{\sqrt{2}}{\sqrt{3}}\\
+		-\frac{1}{\sqrt{2}} & \frac{\sqrt{2}}{2\sqrt{3}}\\
+		\frac{1}{\sqrt{2}} & \frac{\sqrt{2}}{2\sqrt{3}}
+	\end{bmatrix}.
+\end{align*}
+Therefore, pseudo-inverse of $T$ is given by:
+\begin{align*}
+	T^+ &= VS^{-1}U^T\\
+	&= \begin{bmatrix}
+		1 & 0\\
+		-\frac{1}{2} & \frac{\sqrt{3}}{2}\\
+		-\frac{1}{2} & -\frac{\sqrt{3}}{2}
+	\end{bmatrix}.
+\end{align*}
+Therefore,
+\begin{align*}
+	\begin{bmatrix}
+		x_a\\x_b\\x_c
+	\end{bmatrix} &= T^+ \begin{bmatrix}
+		x_{\alpha}\\x_{\beta}
+	\end{bmatrix}.
+\end{align*}
+Now, the dynamics given in the question is:
+\begin{align*}
+	&\begin{bmatrix}
+		v_{\alpha}\\v_{\beta}
+	\end{bmatrix} = (L-M)\frac{\text{d}}{\text{d}t}\begin{bmatrix}
+		i_{\alpha}\\i_{\beta}
+	\end{bmatrix}\\
+	\implies & T\begin{bmatrix}
+		v_a\\v_b\\v_c
+	\end{bmatrix} = (L-M)\frac{\text{d}}{\text{d}t}\left(T\begin{bmatrix}
+		i_a\\i_b\\i_c
+	\end{bmatrix}\right)\\
+	\implies & T^+T \begin{bmatrix}
+		v_a\\v_b\\v_c
+	\end{bmatrix} = (L-M)T^+T\frac{\text{d}}{\text{d}t}\begin{bmatrix}
+		i_a\\i_b\\i_c
+	\end{bmatrix}\\
+	\implies & \begin{bmatrix}
+		v_a\\v_b\\v_c
+	\end{bmatrix} = (L-M)\frac{\text{d}}{\text{d}t}\begin{bmatrix}
+	i_a\\i_b\\i_c
+	\end{bmatrix}.
+\end{align*}
+This is the corresponding dynamics in the $abc$-domain.

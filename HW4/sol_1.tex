@@ -1,0 +1,120 @@
+%----------------------------------------------------------------------------------------
+%	SOLUTION 1
+%----------------------------------------------------------------------------------------
+\subsection*{Problem 1.i}
+The swing equations and simplified turbine-governor model are given by:
+\begin{align}\label{eq:q1_swing}
+	\dot{\delta}_g &= \omega_g-\omega_s \nonumber\\
+	M_g\dot{\omega}_g &= P_g^m-P_g^e \nonumber \\
+	\tau_g\dot{P}_g^m &= P_g^r-P_g^m - \frac{1}{R_g\omega_s}(\omega_g-\omega_s).
+\end{align}
+The generator reference power input is given by:
+\begin{align}\label{eq:q1_gen_ref}
+	P_g^r &= P_g^*+\alpha_g\left(\xi - \sum_{j\in \mathcal{G}}P_j^*\right),
+\end{align}
+where $\alpha_g$ is the AGC participation factor and $\sum_{g \in \mathcal{G}}\alpha_g=1$. $\xi$ is the AGC state whose evolution is given by:
+\begin{align*}
+	\dot{\xi} &= -\xi-\text{ACE}+\sum_{g\in \mathcal{G}}P_g^e\\
+	\text{ACE} &= b\left((1/G)\sum_{g \in \mathcal{G}}(w_g) - w_s\right),
+\end{align*}
+and $b > 0$ and there are a total of $G$ generators in the area. Economic dispatch problem is formulated as follows:
+\begin{align}
+	&\text{min}_{P_g, g \in \mathcal{G}} \sum_{g\in \mathcal{G}}C_g(P_g) \nonumber\\
+	&\text{s.t. } \sum_{g \in \mathcal{G}}P_g = P_{load} + P_{loss}(P_{\mathcal{G}}).
+\end{align}
+It is given in the question that after a load change in the system, the new load is given by $\overline{P}_{load} = P_{load}+\Delta P_{load}$ and let us denote the corresponding changes in the loss as $\overline{P}_{loss} = P_{loss}+\Delta P_{loss}$. In steady state, after the load change, we get the following:
+\begin{align}\label{eq:q1_ss}
+	M_g \dot{\overline{\omega}}_g = 0 & \implies \overline{P}^m_g = \overline{P}^e_g \nonumber\\
+	\tau_g \dot{\overline{P}}_g^m = 0 & \implies \overline{P}^r_g - \overline{P}^m_g - \frac{1}{R_g \omega_s}(\overline{\omega}_g-\omega_s) \nonumber\\
+	\dot{\overline{\xi}} = 0 & \implies \overline{\xi} = -\frac{b}{G}(\overline{\omega}_g - \omega_s) + \sum_{g \in \mathcal{G}}\overline{P}_g^e.
+\end{align}
+From \ref{eq:q1_gen_ref}, summing over all generators in the area, we get,
+\begin{align*}
+	\sum_{j \in \mathcal{G}} \overline{P}_j^r &= \sum_{j \in \mathcal{G}}P_j^* + \sum_{j \in \mathcal{G}} (\alpha_g \overline{\xi}) - \sum_{j\in \mathcal{G}} \alpha_g \sum_{j\in \mathcal{G}}P_j^*\\
+	\sum_{j \in \mathcal{G}} \overline{P}_j^r &= \overline{\xi},
+\end{align*}
+as $\sum_{j \in \mathcal{G}}\alpha_j = 1$. Therefore,
+\begin{align*}
+	&\sum_{j \in \mathcal{G}} \overline{P}_j^r = -\frac{b}{G}(\overline{\omega}_g-\omega_s)+\sum_{j \in \mathcal{G}}\overline{P}_g^e\\
+	\implies & \sum_{j \in \mathcal{G}}\overline{P}_j^r - \sum_{j \in \mathcal{G}}\overline{P}_g^e = -\frac{b}{G}(\overline{\omega}_g-\omega_s)\\
+	\implies & \sum_{j \in \mathcal{G}}\overline{P}_j^r - \sum_{j \in \mathcal{G}}\overline{P}_g^m = -\frac{b}{G}(\overline{\omega}_g-\omega_s)\\
+	\implies & \frac{1}{R_g \omega_s}(\overline{\omega}_g-\omega_s) + \frac{b}{G}(\overline{\omega}_g-\omega_s) = 0\\
+	\implies & \overline{\omega}_g = \omega_s.
+\end{align*}
+Therefore, in steady-state, $\overline{\text{ACE}} = 0$. Thus,
+\begin{align*}
+	\overline{\xi} &= \sum_{j \in \mathcal{G}} \overline{P}_g^e = \overline{P}_{load}+\overline{P}_{loss} = P_{load}+\Delta P_{load} + P_{loss}+\Delta P_{loss}.
+\end{align*}
+Now, as $P_g^*$ is the outcome of economic dispatch optimization problem, it has to satisfy the constraint, $\sum_{j \in \mathcal{G}}P_g^* = P_{load}+P_{loss}$. Hence, from \ref*{eq:q1_ss},
+\begin{align*}
+	\overline{P}_g^m &= \overline{P}_g^r\\
+	&= P_{g}^*+\alpha_g \left(\overline{\xi}-\sum_{j \in \mathcal{G}}P_j^*\right)\\
+	&= P_{g}^*+\alpha_g \left(P_{load}+\Delta P_{load} + P_{loss}+\Delta P_{loss} - P_{load}-P_{loss}\right)\\
+	&= P_{g}^*+\alpha_g \left(\Delta P_{load} + \Delta P_{loss}\right).
+\end{align*}
+%----------------------------------------------------------------------------------------
+%	SOLUTION 1.ii
+%----------------------------------------------------------------------------------------
+\subsection*{Problem 1.ii}
+From \ref{eq:q1_ss},
+\begin{align*}
+	\overline{P}_g^e &= \overline{P}_g^m\\
+	&= P_{g}^*+\alpha_g \left(\Delta P_{load} + \Delta P_{loss}\right).
+\end{align*}
+%----------------------------------------------------------------------------------------
+%	SOLUTION 1.iii
+%----------------------------------------------------------------------------------------
+\subsection*{Problem 1.iii}
+Using Lagrange multiplier $\lambda$ and KKT conditions for the given economic dispatch optimization problem, we get the dual objective as follows:
+\begin{align*}
+	\left(\sum_{g \in \mathcal{G}}C_g(P_g)\right) + \lambda \left(P_{load}+P_{loss}(P_{\mathcal{G}}) - \sum_{g\in \mathcal{G}}P_g\right)
+\end{align*}
+Denoting the optimal variables as $P_g^*$ and $\lambda^*$, we get,
+\begin{align*}
+	\frac{\partial}{\partial P_g} \left(\sum_{g \in \mathcal{G}}C_g(P_g)\right)+\frac{\partial}{\partial P_g}\lambda \left(P_{load}+P_{loss}(P_{\mathcal{G}}) - \sum_{g\in \mathcal{G}}P_g\right) &= 0.
+\end{align*}
+Carrying out the derivative, and denoting  as the optimal values, we get:
+\begin{align}\label{eq:q1_kkt}
+	& C^{\prime}(P_g^*) - \lambda^* \left(1-\frac{\partial}{\partial P_g}P_{loss}(P_{\mathcal{G}^*})\right) = 0 \nonumber\\
+	\implies & C^{\prime}(P_g^*) - \frac{\lambda^*}{\Lambda_g^*} = 0,
+\end{align}
+where, $\Lambda_g^* = \left(1-\frac{\partial}{\partial P_g}P_{loss}(P_{\mathcal{G}^*})\right)^{-1}$.
+%----------------------------------------------------------------------------------------
+%	SOLUTION 1.iv
+%----------------------------------------------------------------------------------------
+\subsection*{Problem 1.iv}
+AGC participation factor is given by:
+\begin{align*}
+	\alpha_g &= \frac{(C^{\prime\prime}_g(P_g^*))^{-1}}{\sum_{j \in \mathcal{G}}(C^{\prime\prime}_j(P_j^*))^{-1}}.
+\end{align*} 
+It is given that,
+\begin{align}\label{eq:q1_cond}
+	\overline{\Lambda}_g^*C^{\prime}_g(\overline{P}_g^*)-\Lambda_g^*C^{\prime}_g(P_g^*) = (\overline{P}_g^*-P_g^*)C^{\prime\prime}_g(P_g^*).
+\end{align}
+Now, from \ref{eq:q1_kkt} and \ref{eq:q1_cond}, we get,
+\begin{align*}
+	&\overline{\lambda}^* - \lambda^* = (\overline{P}_g^*-P_g^*)C^{\prime\prime}_g(P_g^*)\\
+	\implies & \frac{\overline{\lambda}^* - \lambda^*}{C^{\prime\prime}_g(P_g^*)} = (\overline{P}_g^*-P_g^*).
+\end{align*}
+where $\overline{\lambda}^*$ is the optimal value of Lagrange multiplier of the optimization problem solution after the load change. Summing over all the generators, we get:
+\begin{align*}
+	(\overline{\lambda}^*-\lambda^*)\sum_{j \in \mathcal{G}}(C^{\prime \prime}_j(P_j^*))^{-1} = \sum_{j \in \mathcal{G}}(\overline{P}_j^*-P_j^*).
+\end{align*}
+From the derivation in part (ii),
+\begin{align*}
+	\overline{P}_g^e &= P_{g}^*+\alpha_g \left(\Delta P_{load} + \Delta P_{loss}\right)\\
+	&= P_g^* + \alpha_g\left(\sum_{j \in \mathcal{G}}\overline{P}_j^* - \sum_{j \in \mathcal{G}}P_j^*\right)\\
+	&= P_g^* + \frac{(C^{\prime\prime}_g(P_g^*))^{-1}}{\sum_{j \in \mathcal{G}}(C^{\prime\prime}_j(P_j^*))^{-1}}\left(\sum_{j \in \mathcal{G}}\overline{P}_j^* - \sum_{j \in \mathcal{G}}P_j^*\right)\\
+	&= P_g^* + \frac{(C^{\prime\prime}_g(P_g^*))^{-1}}{\sum_{j \in \mathcal{G}}(C^{\prime\prime}_j(P_j^*))^{-1}} \sum_{j \in \mathcal{G}}(\overline{P}_j^*-P_j^*)\\
+	&= P_g^* + \frac{(C^{\prime\prime}_g(P_g^*))^{-1}}{\sum_{j \in \mathcal{G}}(C^{\prime\prime}_j(P_j^*))^{-1}} (\overline{\lambda}^*-\lambda^*)\sum_{j \in \mathcal{G}}(C^{\prime \prime}_j(P_j^*))^{-1}\\
+	&= P_g^* + (C^{\prime\prime}_g(P_g^*))^{-1} (\overline{\lambda}^*-\lambda^*)\\
+	&= P_g^* + (C^{\prime\prime}_g(P_g^*))^{-1}(\overline{P}_g^*-P_g^*)C^{\prime\prime}_g(P_g^*)\\
+	&= P_g^* + \overline{P}_g^*-P_g^*\\
+	&= \overline{P}_g^*.
+\end{align*}
+Therefore, under the given conditions [A1]-[A2], the setpoints as derived from economic dispatch solution becomes exactly equal to th electrical output power of the generators. 
+%----------------------------------------------------------------------------------------
+%	SOLUTION 1.v
+%----------------------------------------------------------------------------------------
+\subsection*{Problem 1.v}
+Convex cost function.

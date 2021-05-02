@@ -1,0 +1,101 @@
+%----------------------------------------------------------------------------------------
+%	SOLUTION 1
+%----------------------------------------------------------------------------------------
+\subsection*{Problem 1}
+In case of a balanced three-phase capacitive circuit with effective series resistance $R$, we can get the following dynamics from KVL in time domain:
+\begin{align}\label{eq:q1_dyn_eqn}
+	C\frac{\text{d}}{\text{d}t}
+	\begin{bmatrix}
+		v_a\\v_b\\v_c
+	\end{bmatrix}-RC\frac{\text{d}}{\text{d}t}\begin{bmatrix}
+		i_a\\i_b\\i_c
+	\end{bmatrix} &= \begin{bmatrix}
+		i_a\\i_b\\i_c
+	\end{bmatrix}.
+\end{align}
+We know that, for a vector $[x_a\ x_b\ x_c]^T$ represented in $3$-phase domain can be transformed to d-q axis (at an angle $\theta_d$) with amplitude preservation in the following way:
+\begin{align*}
+\begin{bmatrix}
+x_d\\x_q
+\end{bmatrix} &= \frac{2}{3}\Gamma_{dq}\begin{bmatrix}
+x_a\\x_b\\x_c
+\end{bmatrix},
+\end{align*}
+where,
+\begin{align*}
+\Gamma_{dq} &= \begin{bmatrix}
+\cos \theta_d & \cos (\theta_d - \frac{2\pi}{3}) & \cos (\theta_d + \frac{2\pi}{3})\\
+-\sin \theta_d & -\sin (\theta_d - \frac{2\pi}{3}) & -\sin (\theta_d + \frac{2\pi}{3})
+\end{bmatrix}.
+\end{align*}
+The inverse transform can be shown to be:
+\begin{align*}
+\begin{bmatrix}
+x_a\\x_b\\x_c
+\end{bmatrix} &= \Gamma_{dq}^T \begin{bmatrix}
+x_d\\x_q
+\end{bmatrix}.
+\end{align*}
+Let us derive $\frac{\text{d}}{\text{d}t}\Gamma_{dq}^T$ first as it will be required later.
+\begin{align*}
+\frac{\text{d}}{\text{d}t} \Gamma_{dq}^T &= \dot{\theta_d}\begin{bmatrix}
+-\sin \theta_d & \cos \theta_d\\
+-\sin (\theta_d-\frac{2\pi}{3}) & -\cos (\theta_d-\frac{2\pi}{3})\\
+-\sin (\theta_d+\frac{2\pi}{3}) & -\cos (\theta_d+\frac{2\pi}{3}) 
+\end{bmatrix} \\
+&= \dot{\theta_d} \Gamma_{dq}^T \begin{bmatrix}
+0 & -1\\1 & 0
+\end{bmatrix}.
+\end{align*}
+Therefore, from Eq.~\ref{eq:q1_dyn_eqn},
+\begin{align*}
+	&C\frac{\text{d}}{\text{d}t}\left(\Gamma_{dq}^T\begin{bmatrix}
+		v_d\\v_q
+	\end{bmatrix}\right)-RC\frac{\text{d}}{\text{d}t}\left(\Gamma_{dq}^T\begin{bmatrix}
+		i_d\\i_q
+	\end{bmatrix}\right) = \Gamma_{dq}^T\begin{bmatrix}
+		i_d\\i_q
+	\end{bmatrix}\\
+	\implies & C\dot{\theta_d}\Gamma_{dq}^T\begin{bmatrix}
+		0&-1\\1&0
+	\end{bmatrix}\begin{bmatrix}
+		v_d\\v_q
+	\end{bmatrix}+C\Gamma_{dq}^T\begin{bmatrix}
+		\dot{v_d}\\\dot{v_q}
+	\end{bmatrix} - RC \dot{\theta_d}\Gamma_{dq}^T\begin{bmatrix}
+		0&-1\\1&0
+	\end{bmatrix}\begin{bmatrix}
+		i_d\\i_q
+	\end{bmatrix}-RC\Gamma_{dq}^T\begin{bmatrix}
+		\dot{i_d}\\\dot{i_q}
+	\end{bmatrix} = \Gamma_{dq}^T\begin{bmatrix}
+		i_d\\i_q
+	\end{bmatrix}\\
+	\implies & C\dot{\theta_d}\begin{bmatrix}
+		-v_q\\v_d
+	\end{bmatrix}+C\begin{bmatrix}
+		\dot{v_d}\\\dot{v_q}
+	\end{bmatrix}-RC\dot{\theta_d}\begin{bmatrix}
+		-i_q\\i_d
+	\end{bmatrix}-RC\begin{bmatrix}
+		\dot{i_d}\\\dot{i_q}
+	\end{bmatrix} = \begin{bmatrix}
+		i_d\\i_q
+	\end{bmatrix}\\
+	\implies & C\left(\begin{bmatrix}
+		\dot{v_d}\\\dot{v_q}
+	\end{bmatrix}-R\begin{bmatrix}
+		\dot{i_d}\\\dot{i_q}
+	\end{bmatrix}\right)+C\dot{\theta_d}\begin{bmatrix}
+		-v_q\\v_d
+	\end{bmatrix}-RC\dot{\theta_d}\begin{bmatrix}
+		-i_q\\i_d
+	\end{bmatrix} = \begin{bmatrix}
+		i_d\\i_q
+	\end{bmatrix}.
+\end{align*}
+Therefore, the dynamics in dq domain can be written as:
+\begin{align*}
+	C\frac{\text{d}}{\text{d}t}\left(v_d-i_dR\right)-C\dot{\theta_d}v_q+RC\dot{\theta_d}i_q &= i_d,\\
+	C\frac{\text{d}}{\text{d}t}\left(v_q-i_qR\right)+C\dot{\theta_d}v_d-RC\dot{\theta_d}i_d &= i_q.
+\end{align*}
