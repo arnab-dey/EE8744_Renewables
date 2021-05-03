@@ -73,10 +73,10 @@ Denoting the optimal variables as $P_g^*$ and $\lambda^*$, we get,
 \begin{align*}
 	\frac{\partial}{\partial P_g} \left(\sum_{g \in \mathcal{G}}C_g(P_g)\right)+\frac{\partial}{\partial P_g}\lambda \left(P_{load}+P_{loss}(P_{\mathcal{G}}) - \sum_{g\in \mathcal{G}}P_g\right) &= 0.
 \end{align*}
-Carrying out the derivative, and denoting  as the optimal values, we get:
+Carrying out the derivative, we get:
 \begin{align}\label{eq:q1_kkt}
-	& C^{\prime}(P_g^*) - \lambda^* \left(1-\frac{\partial}{\partial P_g}P_{loss}(P_{\mathcal{G}^*})\right) = 0 \nonumber\\
-	\implies & C^{\prime}(P_g^*) - \frac{\lambda^*}{\Lambda_g^*} = 0,
+	& C^{\prime}_g(P_g^*) - \lambda^* \left(1-\frac{\partial}{\partial P_g}P_{loss}(P_{\mathcal{G}^*})\right) = 0 \nonumber\\
+	\implies & C^{\prime}_g(P_g^*) - \frac{\lambda^*}{\Lambda_g^*} = 0,
 \end{align}
 where, $\Lambda_g^* = \left(1-\frac{\partial}{\partial P_g}P_{loss}(P_{\mathcal{G}^*})\right)^{-1}$.
 %----------------------------------------------------------------------------------------
@@ -112,9 +112,9 @@ From the derivation in part (ii),
 	&= P_g^* + \overline{P}_g^*-P_g^*\\
 	&= \overline{P}_g^*.
 \end{align*}
-Therefore, under the given conditions [A1]-[A2], the setpoints as derived from economic dispatch solution becomes exactly equal to th electrical output power of the generators. 
+Therefore, under the given conditions [A1]-[A2], the setpoints as derived from economic dispatch solution becomes exactly equal to th electrical output power of the generators. This helps to minimize the impact of inaccurate loss penalty factor consideration.
 %----------------------------------------------------------------------------------------
 %	SOLUTION 1.v
 %----------------------------------------------------------------------------------------
 \subsection*{Problem 1.v}
-Convex cost function.
+Convex cost function with convex feasible set would satisfy [A1]. In lossless networks, [A2] would get automatically satisfied.
