@@ -1,78 +1,194 @@
 %----------------------------------------------------------------------------------------
-%	SOLUTION 2
+%	SOLUTION 2.i
 %----------------------------------------------------------------------------------------
-\subsection*{Problem 2}
-We know that for any vector $[x_a\ x_b\ x_c]^T$ in $3$-phase time domain can be transformed to $\alpha-\beta$ domain, with amplitude preservation, as follows:
+\subsection*{Problem 2.i}
+I am not repeating the notations from the homework to conserve space. We know that complex power injection at $i^{th}$ bus is given by:
 \begin{align*}
+	S_i &= V_iI_i^*.
+\end{align*}
+Now, we know that:
+\begin{align}\label{eq:q2_cur_mat}
 	\begin{bmatrix}
-		x_{\alpha}\\x_{\beta}
-	\end{bmatrix}&= T\begin{bmatrix}
-	x_a\\x_b\\x_c
-	\end{bmatrix},
-\end{align*}
-where,
-\begin{align*}
-	T &= \frac{2}{3}\begin{bmatrix}
-		1 & -\frac{1}{2} & -\frac{1}{2}\\
-		0 & \frac{\sqrt{3}}{2} & -\frac{\sqrt{3}}{2}
-	\end{bmatrix}.
-\end{align*}
-The inverse transform can be obtained using pseudo-inverse of $T$. We can use singular value decomposition (SVD) to derive the pseudo-inverse of $T$. Using MATLAB, we get the following SVD components:
-\begin{align*}
-	T = USV^T,
-\end{align*}
-where,
-\begin{align*}
-	U &= \begin{bmatrix}
-		0 & -1\\-1 & 0
-	\end{bmatrix},\\
-	S &= \begin{bmatrix}
-		\frac{\sqrt{2}}{\sqrt{3}} & 0\\0 & \frac{\sqrt{2}}{\sqrt{3}}
-	\end{bmatrix},\\
-	V &= \begin{bmatrix}
-		0 & -\frac{\sqrt{2}}{\sqrt{3}}\\
-		-\frac{1}{\sqrt{2}} & \frac{\sqrt{2}}{2\sqrt{3}}\\
-		\frac{1}{\sqrt{2}} & \frac{\sqrt{2}}{2\sqrt{3}}
-	\end{bmatrix}.
-\end{align*}
-Therefore, pseudo-inverse of $T$ is given by:
-\begin{align*}
-	T^+ &= VS^{-1}U^T\\
+		I\\I_{N+1}
+	\end{bmatrix} &= \begin{bmatrix}
+		Y & \overline{Y}\\\overline{Y}^T & y
+	\end{bmatrix} \begin{bmatrix}
+		V\\V_0e^{j\theta_0}
+	\end{bmatrix} \nonumber\\
 	&= \begin{bmatrix}
-		1 & 0\\
-		-\frac{1}{2} & \frac{\sqrt{3}}{2}\\
-		-\frac{1}{2} & -\frac{\sqrt{3}}{2}
+		YV + \overline{Y}V_0e^{j\theta_0}\\
+		\overline{Y}^TV + yV_0e^{j\theta_0}
+	\end{bmatrix}.
+\end{align}
+In matrix notation, therefore, we can write the following:
+\begin{align*}
+	S &= V \circ I^*,
+\end{align*}
+where $\circ$ operator denotes Hadamard product. Therefore from \ref*{eq:q2_cur_mat},
+\begin{align*}
+	S &= V \circ (YV + \overline{Y}V_0e^{j\theta_0})^*\\
+	&= V \circ (Y^*V^* + \overline{Y}^*V_0e^{-j\theta_0})\\
+	&= \text{diag}(V)(Y^*V^* + \overline{Y}^*V_0e^{-j\theta_0}),
+\end{align*}
+as for any two vectors $x,y \in \mathbb{R}^N$, $x \circ y = \text{diag}(x)y$.
+%----------------------------------------------------------------------------------------
+%	SOLUTION 2.ii
+%----------------------------------------------------------------------------------------
+\subsection*{Problem 2.ii}
+From the previous part, we have
+\begin{align*}
+	S &= V \circ (Y^*V^* + \overline{Y}^*V_0e^{-j\theta_0}).
+\end{align*}
+If we express $V = V^{nom}+\Delta V$, and choose $V^{nom} = -Y^{-1}\overline{Y}V_0e^{j\theta_0}$, then
+\begin{align*}
+	&S = V \circ (Y^*V^* + \overline{Y}^*V_0e^{-j\theta_0})\\
+	\implies & S^* = V^* \circ (Y^*V^* + \overline{Y}^*V_0e^{-j\theta_0})^*\\
+	\implies & S^* = V^* \circ (YV + \overline{Y}V_0e^{j\theta_0})\\
+	\implies & S^* = V^* \circ (Y(V^{nom}+\Delta V) + \overline{Y}V_0e^{j\theta_0})\\
+	\implies & S^* = V^* \circ (YV^{nom} + Y\Delta V + \overline{Y}V_0e^{j\theta_0})\\
+	\implies & S^* = V^* \circ (Y (-Y^{-1}\overline{Y}V_0e^{j\theta_0}) + Y \Delta V + \overline{Y}V_0e^{j\theta_0})\\
+	\implies & S^* = V^* \circ (-\overline{Y}V_0e^{j\theta_0} + Y\Delta V + \overline{Y}V_0e^{j\theta_0})\\
+	\implies & S^* = V^* \circ (Y \Delta V)\\
+	\implies & S^* = (V^{nom}+\Delta V)^* \circ (Y \Delta V)\\
+	\implies & S^* = (V^{nom})^* \circ Y \Delta V + \Delta V^* \circ  Y \Delta V.
+\end{align*}
+If we neglect second-order terms i.e. $\Delta V^* \circ  Y \Delta V$,
+\begin{align*}
+	S^* &= (V^{nom})^* \circ Y \Delta V \\
+	&= \text{diag}((V^{nom})^*)Y \Delta V.
+\end{align*}
+Therefore $\Delta V$ can be solved from the above linear equation.
+%----------------------------------------------------------------------------------------
+%	SOLUTION 2.iii
+%----------------------------------------------------------------------------------------
+\subsection*{Problem 2.iii}
+As given in the homework,
+\begin{align*}
+	K &= \text{diag}(V^{nom})Y^*\\
+	J &= \begin{bmatrix}
+		\text{Re}(K) & \text{Im}(K)\\\text{Im}(K) & -\text{Re}(K)
 	\end{bmatrix}.
 \end{align*}
-Therefore,
+From the previous part, we got,
+\begin{align*}
+	&S^* = (V^{nom})^* \circ Y \Delta V\\
+	\implies & S  = (V^{nom}) \circ Y^* \Delta V^*\\
+	\implies & S = \text{diag}(V^{nom})Y^* \Delta V^*\\
+	\implies & S = K \Delta V^*\\
+	\implies & P+jQ = (\text{Re}(K) + j \text{Im}(K))(\Delta V_{re}-j\Delta V_{im})\\
+	\implies & P+jQ = (\text{Re}(K)\Delta V_{re} + \text{Im}(K)\Delta V_{im}) + j (\text{Im}(K)\Delta V_{re} - \text{Re}(K)\Delta V_{im}).
+\end{align*}
+Equating real and imaginary parts and using matrix notations, we get
 \begin{align*}
 	\begin{bmatrix}
-		x_a\\x_b\\x_c
-	\end{bmatrix} &= T^+ \begin{bmatrix}
-		x_{\alpha}\\x_{\beta}
+		P\\Q
+	\end{bmatrix} & = \begin{bmatrix}
+		\text{Re}(K)\Delta V_{re} + \text{Im}(K)\Delta V_{im}\\
+		\text{Im}(K)\Delta V_{re} - \text{Re}(K)\Delta V_{im}
+	\end{bmatrix}\\
+	&= \begin{bmatrix}
+		\text{Re}(K) & \text{Im}(K)\\
+		\text{Im}(K) & - \text{Re}(K)
+	\end{bmatrix} \begin{bmatrix}
+		\Delta V_{im}\\\Delta V_{re}
+	\end{bmatrix}\\
+	&= J \begin{bmatrix}
+	\Delta V_{im}\\\Delta V_{re}
 	\end{bmatrix}.
 \end{align*}
-Now, the dynamics given in the question is:
+Therefore, $[\Delta V_{im}\ \Delta V_{re}]^T$ can be solved from the following linear equations:
 \begin{align*}
-	&\begin{bmatrix}
-		v_{\alpha}\\v_{\beta}
-	\end{bmatrix} = (L-M)\frac{\text{d}}{\text{d}t}\begin{bmatrix}
-		i_{\alpha}\\i_{\beta}
-	\end{bmatrix}\\
-	\implies & T\begin{bmatrix}
-		v_a\\v_b\\v_c
-	\end{bmatrix} = (L-M)\frac{\text{d}}{\text{d}t}\left(T\begin{bmatrix}
-		i_a\\i_b\\i_c
-	\end{bmatrix}\right)\\
-	\implies & T^+T \begin{bmatrix}
-		v_a\\v_b\\v_c
-	\end{bmatrix} = (L-M)T^+T\frac{\text{d}}{\text{d}t}\begin{bmatrix}
-		i_a\\i_b\\i_c
-	\end{bmatrix}\\
-	\implies & \begin{bmatrix}
-		v_a\\v_b\\v_c
-	\end{bmatrix} = (L-M)\frac{\text{d}}{\text{d}t}\begin{bmatrix}
-	i_a\\i_b\\i_c
+	\begin{bmatrix}
+	\Delta V_{im}\\\Delta V_{re}
+	\end{bmatrix} = J^{-1}\begin{bmatrix}
+	P\\Q
 	\end{bmatrix}.
 \end{align*}
-This is the corresponding dynamics in the $abc$-domain.
+%----------------------------------------------------------------------------------------
+%	SOLUTION 2.iv
+%----------------------------------------------------------------------------------------
+\subsection*{Problem 2.iv}
+Let us denote $\eta = re^{j\alpha}$ and it is given that $|\eta| = r << 1$. Now,
+\begin{align*}
+	|1+\eta| &= |1+r\cos\alpha + j r\sin \alpha|\\
+	&= \sqrt{(1+r\cos\alpha)^2+(r\sin\alpha)^2}\\
+	&= \sqrt{1+2r\cos\alpha + r^2\cos^2\alpha + r^2\sin^2\alpha}.
+\end{align*}
+Now, $0 \leq \sin^2\alpha \leq 1$ and $0 \leq r^2 << 1$. Therefore, $0 \leq r^2\sin^2\alpha << 1$ and thus, $1+r^2\sin^2\alpha \approx 1$. Therefore,
+\begin{align*}
+	|1+\eta| &= \sqrt{1+2r\cos\alpha + r^2\cos^2\alpha + r^2\sin^2\alpha}\\
+	&\approx \sqrt{1+2r\cos\alpha + r^2\cos^2\alpha}\\
+	&= \sqrt{(1+r\cos\alpha)^2}\\
+	&= 1+r\cos\alpha\\
+	&= 1+\text{Re}(\eta).
+\end{align*}
+Now,
+\begin{align*}
+	\angle(1+\eta) = \arctan\left(\frac{r\sin\alpha}{1+r\cos\alpha}\right).
+\end{align*}
+Now, $-1 \leq \cos\alpha \leq 1$ and $0 \leq r << 1$. Therefore, $1+ r\cos\alpha \approx 1$. Similarly, $-1 \leq \sin\alpha \leq 1$, and thus $r\sin\alpha$ is also very small. Therefore,
+\begin{align*}
+	\angle(1+\eta) &= \arctan\left(\frac{r\sin\alpha}{1+r\cos\alpha}\right)\\
+	&\approx \arctan(r\sin\alpha)\\
+	& \approx r\sin\alpha \hspace*{1cm}[\text{using small angle approximation of arctan}]\\
+	&= r\sin\alpha\\
+	&= \text{Im}(\eta).
+\end{align*}
+%----------------------------------------------------------------------------------------
+%	SOLUTION 2.v
+%----------------------------------------------------------------------------------------
+\subsection*{Problem 2.v}
+It is given that,
+\begin{align*}
+	V &= V^{nom} + \Delta V\\
+	&= V^{nom} \circ \left(\mathbbm{1} + (V^{nom})^{\circ -1}\circ \Delta V\right),
+\end{align*}
+where, $(V^{nom})^{\circ -1}$ is the Hadamard inverse of $V^{nom}$. Now,
+\begin{align*}
+	|V| &= |V^{nom}| \circ |\mathbbm{1}+(V^{nom})^{\circ -1}\circ\Delta V|.
+\end{align*}
+As, $|\Delta V| << \mathbbm{1}$, $|(V^{nom})^{\circ -1}\Delta V| << \mathbbm{1}$, considering $|V^{nom}| >> |\Delta V|$. Therefore, we can apply the result we obtained in part iv as follows:
+\begin{align*}
+	|V| &\approx |V^{nom}| \circ \left(\mathbbm{1} + \text{Re}((V^{nom})^{\circ -1}\circ\Delta V)\right)\\
+	&= |V^{nom}| + |V^{nom}| \circ \text{Re}((V^{nom})^{\circ -1}\circ\Delta V)\\
+	&= |V^{nom}| + |V^{nom}| \circ \text{Re} (|V^{nom}|^{\circ-1} \circ (\cos \theta^{nom}-j\sin\theta^{nom})\circ (\Delta V_{re} + j \Delta V_{im}))\\
+	&= |V^{nom}| + |V^{nom}| \circ \text{Re}(|V^{nom}|^{\circ-1} \circ \cos\theta^{nom} \circ \Delta V_{re} + |V^{nom}|^{\circ-1} \circ \sin\theta^{nom}\circ \Delta V_{im}\\
+	& + j |V^{nom}|^{\circ-1} \circ \cos\theta^{nom}\Delta V_{im}-j|V^{nom}|^{\circ-1} \circ \sin\theta^{nom}\circ \Delta V_{re})\\
+	&= |V^{nom}| + |V^{nom}| \circ (|V^{nom}|^{\circ-1} \circ \cos\theta^{nom} \circ \Delta V_{re} + |V^{nom}|^{\circ-1} \circ \sin\theta^{nom}\circ \Delta V_{im})\\
+	&= |V^{nom}| + \cos\theta^{nom} \circ \Delta V_{re} +  \sin\theta^{nom}\circ \Delta V_{im}\\
+	&= |V^{nom}| + [\text{diag}(\cos\theta^{nom})\ \ \text{diag}(\sin\theta^{nom})]\begin{bmatrix}
+		\Delta V_{re}\\\Delta V_{im}
+	\end{bmatrix}\\
+	&= |V^{nom}| + [\text{diag}(\cos\theta^{nom})\ \ \text{diag}(\sin\theta^{nom})]J^{-1}\begin{bmatrix}
+	P\\Q
+	\end{bmatrix}.
+\end{align*}
+%----------------------------------------------------------------------------------------
+%	SOLUTION 2.vi
+%----------------------------------------------------------------------------------------
+\subsection*{Problem 2.vi}
+Similarly,
+\begin{align*}
+	\angle V &= \theta = \angle (V^{nom} \circ \left(\mathbbm{1} + (V^{nom})^{\circ -1}\circ \Delta V\right))\\
+	&= \angle V^{nom} + \angle(\left(\mathbbm{1} + (V^{nom})^{\circ -1}\circ \Delta V\right))\\
+	&= \theta^{nom} + \angle(\left(\mathbbm{1} + (V^{nom})^{\circ -1}\circ \Delta V\right))\\
+	&\approx \theta^{nom} + \text{Im}((V^{nom})^{\circ -1}\circ \Delta V)\\
+	&= \theta^{nom} + \text{Im}(|V^{nom}|^{\circ-1} \circ (\cos \theta^{nom}-j\sin\theta^{nom})\circ (\Delta V_{re} + j \Delta V_{im}))\\
+	&= \theta^{nom} + \text{Im}(|V^{nom}|^{\circ-1} \circ \cos\theta^{nom} \circ \Delta V_{re} + |V^{nom}|^{\circ-1} \circ \sin\theta^{nom}\circ \Delta V_{im}\\
+	&+ j |V^{nom}|^{\circ-1} \circ \cos\theta^{nom}\Delta V_{im}-j|V^{nom}|^{\circ-1} \circ \sin\theta^{nom}\circ \Delta V_{re})\\
+	&= \theta^{nom} + |V^{nom}|^{\circ-1} \circ \cos\theta^{nom}\circ\Delta V_{im}-|V^{nom}|^{\circ-1} \circ \sin\theta^{nom}\circ \Delta V_{re}\\
+	&= \theta^{nom}+ |V^{nom}|^{\circ-1} \circ (\cos\theta^{nom}\circ\Delta V_{im} - \sin\theta^{nom}\circ \Delta V_{re})\\
+	&= \theta^{nom} + |V^{nom}|^{\circ-1} \circ [-\text{diag}(\sin\theta^{nom})\ \ \text{diag}(\cos\theta^{nom})] \begin{bmatrix}
+		\Delta V_{re}\\\Delta V_{im}
+	\end{bmatrix}\\
+	&= \theta^{nom} + \text{diag}(|V^{nom}|)^{-1}[-\text{diag}(\sin\theta^{nom})\ \ \text{diag}(\cos\theta^{nom})] \begin{bmatrix}
+	\Delta V_{re}\\\Delta V_{im}
+	\end{bmatrix}\\
+	&= \theta^{nom} + \text{diag}(|V^{nom}|)^{-1}[-\text{diag}(\sin\theta^{nom})\ \ \text{diag}(\cos\theta^{nom})]J^{-1}\begin{bmatrix}
+	P\\Q
+	\end{bmatrix}.
+\end{align*}
+%----------------------------------------------------------------------------------------
+%	SOLUTION 2.vii
+%----------------------------------------------------------------------------------------
+\subsection*{Problem 2.vii}
