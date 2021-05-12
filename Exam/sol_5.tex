@@ -1,0 +1,20 @@
+%----------------------------------------------------------------------------------------
+%	SOLUTION 5
+%----------------------------------------------------------------------------------------
+\subsection*{Problem 5}
+It is given that $P \sim \mathcal{N}(0,1), Q \sim \mathcal{N}(0,1)$ and $P,Q$ are independent. Also, as they are active and reactive powers respectively, we can write $P = S\cos \Theta$ and $Q=S \sin \Theta$, where $S=\sqrt{P^2+Q^2}$ and $\Theta = \arctan (Q/P)$. Therefore, transformation from $P,Q$ to $S,\Theta$ are just cartesian to polar coordinate transformation. Denoting the random variables in caps and their values in small letters, the joint distribution of $S,\Theta$ can be derived as follows:
+\begin{align*}
+	& f_{P,Q}(p,q) = \frac{f_{S,\Theta}(s, \theta)}{\begin{vmatrix} \frac{\partial p}{\partial s} & \frac{\partial p}{\partial \theta}\\
+		\frac{\partial q}{\partial s} & \frac{\partial q}{\partial \theta}\end{vmatrix}}\\
+	\implies & f_{P,Q}(p,q) = \frac{f_{S,\Theta}(s, \theta)}{\begin{vmatrix}
+			\cos \theta & -s\sin \theta\\
+			\sin \theta & s\cos \theta
+		\end{vmatrix}}\\
+	\implies & f_{P,Q}(p,q) = \frac{f_{S,\Theta}(s, \theta)}{s\cos^2 \theta + s\sin^2 \theta}\\
+	\implies & f_{P,Q}(p,q) = \frac{f_{S,\Theta}(s, \theta)}{s}\\
+	\implies & f_{S,\Theta}(s, \theta) = sf_{P,Q}(p,q)\\
+	\implies & f_{S,\Theta}(s, \theta) = s f_P(p)f_Q(q) \hspace{4.5cm}[\because P,Q \text{ are independent}]\\
+	\implies & f_{S,\Theta}(s, \theta) = s \left(\frac{1}{\sqrt{2\pi}}e^{-\frac{p^2}{2}}\right)\left(\frac{1}{\sqrt{2\pi}}e^{-\frac{q^2}{2}}\right) \hspace{2cm}[\because P\sim \mathcal{N}(0,1), Q\sim \mathcal{N}(0,1)]\\
+	\implies & f_{S,\Theta}(s, \theta) = \frac{s}{2\pi}e^{-\frac{p^2+q^2}{2}}\\
+	\implies & f_{S,\Theta}(s, \theta) = \frac{s}{2\pi}e^{-\frac{s^2}{2}}
+\end{align*}

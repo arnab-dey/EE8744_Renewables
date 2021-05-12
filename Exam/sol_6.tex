@@ -1,0 +1,108 @@
+%----------------------------------------------------------------------------------------
+%	SOLUTION 6.1
+%----------------------------------------------------------------------------------------
+\subsection*{Problem 6.1}
+The current voltage equation can be written as:
+\begin{align}\label{eq:q6_cur_vol}
+	\begin{bmatrix}
+		I\\I_{N+1}
+	\end{bmatrix} &= \begin{bmatrix}
+		Y & \overline{Y}\\
+		\overline{Y}^T & y
+	\end{bmatrix}\begin{bmatrix}
+		V\\V_0e^{j\theta_0}
+	\end{bmatrix}
+\end{align}
+Therefore,
+\begin{align*}
+	\begin{bmatrix}
+		Y & \overline{Y}\\
+		\overline{Y}^T & y
+	\end{bmatrix}^{-1}\begin{bmatrix}
+		I\\I_{N+1}
+	\end{bmatrix} &= \begin{bmatrix}
+		V\\V_0e^{j\theta_0}
+	\end{bmatrix}.
+\end{align*}
+It can be proved that the inverse exists as $Y$ is the Y-bus matrix of the system (Not proving to keep the answer concise). Also, $Y^{-1}$ and $y^{-1}$ exist. Now, using partition matrix inversion lemma,
+\begin{align*}
+	\begin{bmatrix}
+		(Y-\overline{Y}y^{-1}\overline{Y}^T)^{-1} & -Y^{-1}\overline{Y}(y-\overline{Y}^TY^{-1}\overline{Y})^{-1}\\
+		-y^{-1}\overline{Y}^T(Y-\overline{Y}y^{-1}\overline{Y}^T)^{-1} & (y-\overline{Y}^TY^{-1}\overline{Y})^{-1}
+	\end{bmatrix}\begin{bmatrix}
+		I\\I_{N+1}
+	\end{bmatrix} &= \begin{bmatrix}
+		V\\V_0e^{j\theta_0}
+	\end{bmatrix}.
+\end{align*}
+Now, it is given that $I = 0_{N}$ and $V_0e^{j\theta_0} = 1$. Under this condition, $V$ is denoted by $V^{nom}$. Therefore from the above equation, equating left hand side and right hand side, we get,
+\begin{align*}
+	-Y^{-1}\overline{Y}(y-\overline{Y}^TY^{-1}\overline{Y})^{-1}I_{N+1} &= V^{nom}\\
+	(y-\overline{Y}^TY^{-1}\overline{Y})^{-1}I_{N+1} &= 1\\
+	\implies I_{N+1} &= (y-\overline{Y}^TY^{-1}\overline{Y}).
+\end{align*}
+Therefore, solving for $V^{nom}$, we get
+\begin{align*}
+	V^{nom} &= -Y^{-1}\overline{Y}(y-\overline{Y}^TY^{-1}\overline{Y})^{-1}(y-\overline{Y}^TY^{-1}\overline{Y})\\
+	&= -Y^{-1}\overline{Y}.
+\end{align*}
+NOw, it is given that there are no shunt elements in the system. Therefore, each row sum of $Y$ and $\overline{Y}$ must be zero (from the structure of Y-bus matrix). Therefore, $Y\mathbbm{1}_N + \overline{Y}=0$, \textit{i.e.} $\overline{Y} = -Y\mathbbm{1}_N$. Plugging in the expression of $\overline{Y}$ in the above equation, we get
+\begin{align*}
+	V^{nom} &= Y^{-1}Y\mathbbm{1}_N\\
+	&= \mathbbm{1}_N.
+\end{align*}
+%----------------------------------------------------------------------------------------
+%	SOLUTION 6.2
+%----------------------------------------------------------------------------------------
+\subsection*{Problem 6.2}
+From homework 4, part (v) and (vi), we have the following expressions for appropriate approximations for the magnitude and phase of complex vectors with small perturbations around $V^{nom}$,
+\begin{align}\label{eq:q6_v_theta_approx}
+	|V| &\approx |V^{nom}| + [\text{diag}(\cos\theta^{nom})\ \ \text{diag}(\sin\theta^{nom})]J^{-1}\begin{bmatrix}
+	P\\Q
+	\end{bmatrix}\\
+	\angle V &\approx \theta^{nom} + \text{diag}(|V^{nom}|)^{-1}[-\text{diag}(\sin\theta^{nom})\ \ \text{diag}(\cos\theta^{nom})]J^{-1}\begin{bmatrix}
+	P\\Q
+	\end{bmatrix},
+\end{align}
+where,
+\begin{align*}
+	K &= \text{diag}(V^{nom})Y^*\\
+	J &= \begin{bmatrix}
+	\text{Re}(K) & \text{Im}(K)\\\text{Im}(K) & -\text{Re}(K)
+	\end{bmatrix}.
+\end{align*}
+Now, in this question, $V^{nom} = 1\angle 0$. Therefore,
+\begin{align*}
+	K &= \text{diag}(V^{nom})Y^*\\
+	&= I_{N\times N} (G+jB)^*\\
+	&= I_{N \times N}(G-jB)\\
+	&= G-jB.
+\end{align*}
+Hence,
+\begin{align*}
+	J &= \begin{bmatrix}
+		G & -B\\
+		-B & -G
+	\end{bmatrix}.
+\end{align*}
+Also, $\theta^{nom} = 0$. Thus $\cos(\theta^{nom}) = 1$ and $\sin(\theta^{nom}) = 0$. Therefore, from (\ref{eq:q6_v_theta_approx}),
+\begin{align*}
+	|V| & \approx \mathbbm{1}_N + [I_{N\times N}\ \ 0_{n \times N}] \begin{bmatrix}
+		G & -B\\
+		-B & -G
+	\end{bmatrix}^{-1}\begin{bmatrix}
+	P\\Q
+	\end{bmatrix}\\
+	\angle V & \approx 0_{N} + \text{diag}(1)^{-1}[-0_{N \times N}\ \ I_{N \times N}]\begin{bmatrix}
+	G & -B\\
+	-B & -G
+	\end{bmatrix}^{-1}\begin{bmatrix}
+	P\\Q
+	\end{bmatrix}\\
+	&= [0_{N \times N}\ \ I_{N \times N}]\begin{bmatrix}
+	G & -B\\
+	-B & -G
+	\end{bmatrix}^{-1}\begin{bmatrix}
+	P\\Q
+	\end{bmatrix}.
+\end{align*}

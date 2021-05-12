@@ -1,0 +1,52 @@
+%----------------------------------------------------------------------------------------
+%	SOLUTION 7.1
+%----------------------------------------------------------------------------------------
+\subsection*{Problem 7.1}
+We have,
+\begin{align}\label{eq:q7_non_lin}
+	\dot{r} &= \epsilon\sigma\omega_0\frac{r}{2}\left(1-\frac{\alpha}{\sigma}r^2\right).
+\end{align}
+At equilibria $\dot{r} = 0$. Therefore, from the above equation, considering $\epsilon,\sigma,\omega_0,\alpha \neq 0$, we get two solutions,
+\begin{align*}
+	r &= 0,
+\end{align*}
+and
+\begin{align*}
+	& 1-\frac{\alpha}{\sigma}r^2 = 0\\
+	\implies & r = \sqrt{\frac{\sigma}{\alpha}}.
+\end{align*}
+%----------------------------------------------------------------------------------------
+%	SOLUTION 7.2
+%----------------------------------------------------------------------------------------
+\subsection*{Problem 7.2}
+For small signal stability, we have to first linearize the system around two equilibrium points. Let us denote $f(r) = \epsilon\sigma\omega_0\frac{r}{2}\left(1-\frac{\alpha}{\sigma}r^2\right)$. Therefore,
+\begin{align*}
+	\frac{\partial f}{\partial r} &= \frac{\epsilon\sigma\omega_0}{2}-\frac{3}{2}\epsilon\omega_0\alpha r^2.
+\end{align*}
+Therefore, around the equilibrium point $r=0$, we have
+\begin{align*}
+	\frac{\partial f}{\partial r}|_{r=0} = \frac{\epsilon\sigma\omega_0}{2}.
+\end{align*}
+Considering $\epsilon,\sigma,\omega_0 > 0$, this equilibrium point is not small signal stable as the real part eigen value of state matrix of the linearized system is positive. Now, let us consider the other equilibrium point,
+\begin{align*}
+	\frac{\partial f}{\partial r}|_{r=\sqrt{\frac{\sigma}{\alpha}}} &= \frac{\epsilon\sigma\omega_0}{2} - \frac{3}{2}\epsilon\omega_0\alpha\frac{\sigma}{\alpha}\\
+	&= -\epsilon\sigma\omega_0.
+\end{align*}
+This equilibrium point is small signal stable as the real part of the eigen value of the state matrix is negative.
+------------
+%	SOLUTION 7.3
+%----------------------------------------------------------------------------------------
+\subsection*{Problem 7.3}
+From (\ref{eq:q7_non_lin}), denoting the stable equilibrium point as $r^* = \sqrt{\frac{\sigma}{\alpha}}$ and denoting the time when $r=0.1r^*$ as $t_1$ and the time when $r=0.9r^*$ as $t_2$ (\textit{i.e.} $t_{rise} = t_2-t_1$), we get,
+\begin{align*}
+	& \frac{dr}{dt} = \epsilon\sigma\omega_0\frac{r}{2}\left(1-\frac{\alpha}{\sigma}r^2\right)\\
+	\implies & \frac{dr}{\frac{r}{2}\left(1-\frac{\alpha}{\sigma}r^2\right)} = \epsilon\sigma\omega_0 dt\\
+	\implies & \frac{2 \sigma dr}{\sigma r - \alpha r^3} = \epsilon \sigma \omega_0 dt\\
+	\implies & (2\sigma)\left(\frac{1}{\sigma r} - \frac{\alpha r}{\sigma(\alpha r^2-\sigma)}\right)dr = \epsilon\sigma\omega_0 dt\\
+	\implies & (2 \sigma) \int_{0.1r^*}^{0.9r^*} \left(\frac{1}{\sigma r}-\frac{\alpha r}{\sigma(\alpha r^2-\sigma)}\right)dr = \epsilon \sigma\omega_0 \int_{t_1}^{t_2} dt\\
+	\implies & (2)\left[\ln(r)-\frac{1}{2}\ln(\alpha r^2-\sigma)\right]_{0.1r^*}^{0.9r^*} = \epsilon\sigma\omega_0(t_2-t_1)\\
+	\implies & (2)\left[\ln(9)+\frac{1}{2}\ln\left(\frac{0.1\alpha\frac{\sigma}{\alpha}-\sigma}{0.9\alpha\frac{\sigma}{\alpha}-\sigma}\right)\right] = \epsilon\sigma\omega_0(t_{rise})\\
+	\implies & 3 \ln (9) = \epsilon\sigma\omega_0t_{rise}\\
+	\implies & t_{rise} = \frac{6}{\epsilon\sigma\omega_0} \hspace{2cm}[\because 3\ln(9) \approx 6].
+\end{align*}
+

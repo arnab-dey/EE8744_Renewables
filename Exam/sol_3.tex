@@ -1,0 +1,181 @@
+%----------------------------------------------------------------------------------------
+%	SOLUTION 3
+%----------------------------------------------------------------------------------------
+\subsection*{Problem 3}
+We know that, for a vector $[x_a\ x_b\ x_c]^T$ represented in $3$-phase domain can be transformed to d-q axis (at an angle $\theta_d$) with amplitude preservation in the following way:
+\begin{align*}
+	\begin{bmatrix}
+	x_d\\x_q
+	\end{bmatrix} &= \frac{2}{3}\Gamma_{dq}\begin{bmatrix}
+	x_a\\x_b\\x_c
+	\end{bmatrix},
+\end{align*}
+where,
+\begin{align*}
+	\Gamma_{dq} &= \begin{bmatrix}
+	\cos \theta_d & \cos (\theta_d - \frac{2\pi}{3}) & \cos (\theta_d + \frac{2\pi}{3})\\
+	-\sin \theta_d & -\sin (\theta_d - \frac{2\pi}{3}) & -\sin (\theta_d + \frac{2\pi}{3})
+	\end{bmatrix}.
+\end{align*}
+The inverse transform can be shown to be:
+\begin{align*}
+	\begin{bmatrix}
+	x_a\\x_b\\x_c
+	\end{bmatrix} &= \Gamma_{dq}^T \begin{bmatrix}
+	x_d\\x_q
+	\end{bmatrix}.
+\end{align*}
+Let us derive $\frac{\text{d}}{\text{d}t}\Gamma_{dq}^T$ first as it will be required later.
+\begin{align*}
+	\frac{\text{d}}{\text{d}t} \Gamma_{dq}^T &= \dot{\theta_d}\begin{bmatrix}
+	-\sin \theta_d & \cos \theta_d\\
+	-\sin (\theta_d-\frac{2\pi}{3}) & -\cos (\theta_d-\frac{2\pi}{3})\\
+	-\sin (\theta_d+\frac{2\pi}{3}) & -\cos (\theta_d+\frac{2\pi}{3}) 
+	\end{bmatrix} \\
+	&= \dot{\theta_d} \Gamma_{dq}^T \begin{bmatrix}
+	0 & -1\\1 & 0
+	\end{bmatrix}.
+\end{align*}
+Therefore,
+\begin{align*}
+	\frac{\text{d}}{\text{d}t}\begin{bmatrix}
+	x_a\\x_b\\x_c
+	\end{bmatrix} &= \frac{\text{d}}{\text{d}t}\left(\Gamma_{dq}^T \begin{bmatrix}
+	x_d\\x_q
+	\end{bmatrix}\right)\\
+	&= \dot{\theta_d} \Gamma_{dq}^T \begin{bmatrix}
+	0 & -1\\1 & 0
+	\end{bmatrix}\begin{bmatrix}
+	x_d\\x_q
+	\end{bmatrix}+\Gamma_{dq}^T\begin{bmatrix}
+	\dot{x}_d\\\dot{x}_q
+	\end{bmatrix}\\
+	&= \dot{\theta_d} \Gamma_{dq}^T\begin{bmatrix}
+		-x_q\\x_d
+	\end{bmatrix}+\Gamma_{dq}^T\begin{bmatrix}
+	\dot{x}_d\\\dot{x}_q
+	\end{bmatrix}.
+\end{align*}
+Now, from the LCL filter diagram, using KCL, KVL, we get:
+\begin{align*}
+	v_i &= L_f\frac{\text{d}i_l}{\text{d}t}+i_lr_f+L_c\frac{\text{d}i_o}{\text{d}t}+i_or_c+v_b.
+\end{align*}
+Writing in 3-phase matrix notation,
+\begin{align*}
+	\begin{bmatrix}
+		v_{ia}\\v_{ib}\\v_{ic}
+	\end{bmatrix} &= L_f\frac{\text{d}}{\text{d}t}\begin{bmatrix}
+		i_{la}\\i_{lb}\\i_{lc}
+	\end{bmatrix}+r_f\begin{bmatrix}
+		i_{la}\\i_{lb}\\i_{lc}
+	\end{bmatrix}+L_c\frac{\text{d}}{\text{d}t}\begin{bmatrix}
+		i_{oa}\\i_{ob}\\i_{oc}
+	\end{bmatrix}+r_c\begin{bmatrix}
+		i_{oa}\\i_{ob}\\i_{oc}
+	\end{bmatrix}+\begin{bmatrix}
+		v_{ba}\\v_{bb}\\v_{bc}
+	\end{bmatrix}.
+\end{align*}
+Transforming into d-q axis we get,
+\begin{align}\label{eq:q3_il_io_dq}
+	&\Gamma_{dq}^T\begin{bmatrix}
+		v_{id}\\v_{iq}
+	\end{bmatrix} = L_f\left(\dot{\theta_d}\Gamma_{dq}^T\begin{bmatrix}
+		-i_{lq}\\i_{ld}
+	\end{bmatrix}+\Gamma_{dq}^T\begin{bmatrix}
+		\dot{i}_{ld}\\ \dot{i}_{lq}
+	\end{bmatrix}\right)+r_f\Gamma_{dq}^T\begin{bmatrix}
+		i_{ld}\\i_{lq}
+	\end{bmatrix}\nonumber\\
+	&+L_c\left(\dot{\theta_d}\Gamma_{dq}^T\begin{bmatrix}
+		-i_{oq}\\i_{od}
+	\end{bmatrix}+\Gamma_{dq}^T\begin{bmatrix}
+		\dot{i}_{od}\\ \dot{i}_{oq}
+	\end{bmatrix}\right)+r_c\Gamma_{dq}^T\begin{bmatrix}
+		i_{od}\\i_{oq}
+	\end{bmatrix}+\Gamma_{dq}^T\begin{bmatrix}
+		v_{bd}\\v_{bq}
+	\end{bmatrix}\nonumber\\
+	\implies & \begin{bmatrix}
+	v_{id}\\v_{iq}
+	\end{bmatrix} = L_f\dot{\theta_d}\begin{bmatrix}
+	-i_{lq}\\i_{ld}
+	\end{bmatrix}+L_f\begin{bmatrix}
+	\dot{i}_{ld}\\ \dot{i}_{lq}
+	\end{bmatrix}+r_f\begin{bmatrix}
+	i_{ld}\\i_{lq}
+	\end{bmatrix}+L_c\dot{\theta_d}\begin{bmatrix}
+	-i_{oq}\\i_{od}
+	\end{bmatrix}+L_c\begin{bmatrix}
+	\dot{i}_{od}\\ \dot{i}_{oq}
+	\end{bmatrix}+r_c\begin{bmatrix}
+	i_{od}\\i_{oq}
+	\end{bmatrix}+\begin{bmatrix}
+	v_{bd}\\v_{bq}
+	\end{bmatrix}.
+\end{align}
+Similarly the dynamics of $v_o$ is
+\begin{align*}
+	C_f\frac{\text{d}}{\text{d}t}(v_o-(i_l-i_o)R_d) &= i_l-i_o.
+\end{align*}
+In 3-phase and in matrix notation,
+\begin{align*}
+	C_f\frac{\text{d}}{\text{d}t}\begin{bmatrix}
+		v_{oa}\\v_{ob}\\v_{oc}
+	\end{bmatrix}-C_fR_d\frac{\text{d}}{\text{d}t}\begin{bmatrix}
+		i_{la}\\i_{lb}\\i_{lc}
+	\end{bmatrix}+C_fR_d\frac{\text{d}}{\text{d}t}\begin{bmatrix}
+		i_{oa}\\i_{ob}\\i_{oc}
+	\end{bmatrix} &= \begin{bmatrix}
+		i_{la}\\i_{lb}\\i_{lc}
+	\end{bmatrix}-\begin{bmatrix}
+		i_{oa}\\i_{ob}\\i_{oc}
+	\end{bmatrix}.
+\end{align*}
+Transforming into d-q axis,
+\begin{align*}
+	&C_f\dot{\theta_d}\Gamma_{dq}^T\begin{bmatrix}
+		-v_{oq}\\v_{od}
+	\end{bmatrix}+C_f\Gamma_{dq}^T\begin{bmatrix}
+		\dot{v}_{od}\\ \dot{v}_{oq}
+	\end{bmatrix}-C_fR_d\dot{\theta_d}\Gamma_{dq}^T\begin{bmatrix}
+		-i_{lq}\\i_{ld}
+	\end{bmatrix}\\
+	&-C_fR_d\Gamma_{dq}^T\begin{bmatrix}
+		\dot{i}_{ld}\\ \dot{i}_{lq}
+	\end{bmatrix} + C_fR_d \dot{\theta_d}\Gamma_{dq}^T\begin{bmatrix}
+		-i_{oq}\\i_{od}
+	\end{bmatrix}+C_fR_d\Gamma_{dq}^T\begin{bmatrix}
+		\dot{i}_{od}\\ \dot{i}_{oq}
+	\end{bmatrix} = \Gamma_{dq}^T\begin{bmatrix}
+		i_{ld}\\i_{lq}
+	\end{bmatrix}-\Gamma_{dq}^T\begin{bmatrix}
+		i_{od}\\i_{oq}
+	\end{bmatrix}\\
+	\implies & C_f\dot{\theta_d}\begin{bmatrix}
+	-v_{oq}\\v_{od}
+	\end{bmatrix}+C_f\begin{bmatrix}
+	\dot{v}_{od}\\ \dot{v}_{oq}
+	\end{bmatrix}-C_fR_d\dot{\theta_d}\begin{bmatrix}
+	-i_{lq}\\i_{ld}
+	\end{bmatrix}-C_fR_d\begin{bmatrix}
+	\dot{i}_{ld}\\ \dot{i}_{lq}
+	\end{bmatrix} + C_fR_d \dot{\theta_d}\begin{bmatrix}
+	-i_{oq}\\i_{od}
+	\end{bmatrix}+C_fR_d\begin{bmatrix}
+	\dot{i}_{od}\\ \dot{i}_{oq}
+	\end{bmatrix} = \begin{bmatrix}
+	i_{ld}\\i_{lq}
+	\end{bmatrix}-\begin{bmatrix}
+	i_{od}\\i_{oq}
+	\end{bmatrix}\\
+	\implies & C_f\begin{bmatrix}
+		\dot{v}_{od}-\dot{i}_{ld}R_d+\dot{i}_{od}R_d\\
+		\dot{v}_{oq}-\dot{i}_{lq}R_d+\dot{i}_{oq}R_d
+	\end{bmatrix}+C_f\dot{\theta_d}\begin{bmatrix}
+		i_{lq}R_d-v_{oq}-i_{oq}R_d\\
+		v_{od}-i_{ld}R_d+i_{od}R_d
+	\end{bmatrix} = \begin{bmatrix}
+		i_{ld}-i_{od}\\i_{lq}-i_{oq}
+	\end{bmatrix}.
+\end{align*}

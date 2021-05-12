@@ -1,0 +1,56 @@
+%----------------------------------------------------------------------------------------
+%	SOLUTION 4.1
+%----------------------------------------------------------------------------------------
+\subsection*{Problem 4.1}
+It is given that,
+\begin{align}\label{eq:q4_gen_dyn}
+	M_{\mathcal{G},g}\dot{\omega}_g &= P_{\mathcal{G},g}^m -D_{\mathcal{G},g}(\omega_g-\omega_s)-P_{\mathcal{G},g}^e \nonumber\\
+	\tau_g\dot{P}_{\mathcal{G},g}^m &= -P_{\mathcal{G},g}^m + P_{\mathcal{G},g}^r - R_{\mathcal{G},g}(\omega_g-\omega_s).
+\end{align}
+According to the assumption, $\omega_g(t)=\omega(t), \forall g \in \mathcal{G}, \forall t \geq 0$, and $\dot{\omega}_g(0) = \dot{\omega}(0), \forall g \in \mathcal{G}$. Therefore, at $t=0$, summing over all $g \in \mathcal{G}$, from (\ref{eq:q4_gen_dyn}):
+\begin{align}\label{eq:q4_gen_dyn_2}
+	\dot{\omega}(0)\sum_{g\in \mathcal{G}}M_{\mathcal{G},g} &= \sum_{g\in \mathcal{G}}P_{\mathcal{G},g}^m(0) - (\omega(0)-\omega_s)\sum_{g\in \mathcal{G}}D_{\mathcal{G},g}-P_{load}-\Delta P_{load}\\
+	\sum_{g\in \mathcal{G}}\tau_g \dot{P}_{\mathcal{G},g}^m(0) &= -\sum_{g\in \mathcal{G}}P_{\mathcal{G},g}^m(0) + P_{load} - (\omega(0)-\omega_s)\sum_{g\in \mathcal{G}}R_{\mathcal{G},g},
+\end{align}
+as $\sum_{g\in \mathcal{G}}P_{\mathcal{G},g}^e(0) = P_{load}+\Delta P_{load}$ and $\sum_{g\in \mathcal{G}}P_{\mathcal{G},g}^r = P_{load}$. Summing up the two equations in (\ref{eq:q4_gen_dyn_2}),
+\begin{align*}
+	\dot{\omega}(0)\sum_{g\in \mathcal{G}}M_{\mathcal{G},g} + \sum_{g\in \mathcal{G}}\tau_g \dot{P}_{\mathcal{G},g}^m(0) &= - (\omega(0)-\omega_s)\left(\sum_{g\in \mathcal{G}}D_{\mathcal{G},g} + \sum_{g\in \mathcal{G}}R_{\mathcal{G},g}\right)-\Delta P_{load}.
+\end{align*}
+%----------------------------------------------------------------------------------------
+%	SOLUTION 4.2
+%----------------------------------------------------------------------------------------
+\subsection*{Problem 4.2}
+In post-disturbance steady state frequency, $\dot{\omega}_g = 0$ and $\dot{P}_{\mathcal{G},g}^m = 0$. Therefore, from (\ref{eq:q4_gen_dyn}), summing over all $g \in \mathcal{G}$,
+\begin{align}
+	0 &= \sum_{g\in \mathcal{G}} P_{\mathcal{G},g}^m(\infty) - \sum_{g\in \mathcal{G}}D_{\mathcal{G},g}(\omega(\infty)-\omega_s) - P_{load}-\Delta P_{load}\\
+	0 &= -\sum_{g\in \mathcal{G}} P_{\mathcal{G},g}^m(\infty) + P_{load} - (\omega(\infty)-\omega_s)\sum_{g\in \mathcal{G}}R_{\mathcal{G},g}.
+\end{align}
+Summing up both the above equations,
+\begin{align*}
+	&0 = -(\sum_{g\in \mathcal{G}}D_{\mathcal{G},g} + \sum_{g\in \mathcal{G}}R_{\mathcal{G},g})(\omega(\infty)-\omega_s)-\Delta P_{load}\\
+	\implies & \omega(\infty) = -\frac{\Delta P_{load}}{\sum_{g\in \mathcal{G}} (D_{\mathcal{G},g}+R_{\mathcal{G},g})}+\omega_s
+\end{align*}
+%----------------------------------------------------------------------------------------
+%	SOLUTION 4.3
+%----------------------------------------------------------------------------------------
+\subsection*{Problem 4.3}
+In Laplace domain, let us denote the frequency deviation as $\Delta \omega(s) = \omega(s)-\omega_s$. Also, for ease of notation, let us define $M \coloneqq \sum_{g\in \mathcal{G}}M_{\mathcal{G},g}, D \coloneqq \sum_{g\in \mathcal{G}}D_{\mathcal{G},g}, R \coloneqq \sum_{g\in \mathcal{G}}R_{\mathcal{G},g}$. Transforming (\ref{eq:q4_gen_dyn}) to Laplace domain and summing up over all $g \in \mathcal{G}$,
+\begin{align}\label{eq:q4_laplace_1}
+	s\Delta\omega(s)M  = \sum_{g\in \mathcal{G}}P_{\mathcal{G},g}^m(s)-D\Delta \omega(s)-\frac{P_{load}}{s}-\Delta P_{load}(s)
+\end{align}
+\begin{align*}
+	&\tau s \sum_{g\in \mathcal{G}}P_{\mathcal{G},g}^m(s) = -\sum_{g\in \mathcal{G}}P_{\mathcal{G},g}^m(s) + \frac{P_{load}}{s} - R \Delta \omega(s)\\
+	\implies & (\tau s + 1)\sum_{g\in \mathcal{G}}P_{\mathcal{G},g}^m(s) = \frac{P_{load}}{s}-R\Delta \omega(s)\\
+	\implies & \sum_{g\in \mathcal{G}}P_{\mathcal{G},g}^m(s) = \frac{\frac{P_{load}}{s}-R\Delta \omega(s)}{\tau s + 1}.
+\end{align*}
+Therefore, from (\ref{eq:q4_laplace_1}),
+\begin{align*}
+	& sM\Delta\omega(s) = \frac{\frac{P_{load}}{s}-R\Delta \omega(s)}{\tau s + 1} - D \Delta \omega(s) - \frac{P_{load}}{s} - \Delta P_{load}(s).
+\end{align*}
+We need to find the transfer function between $\Delta \omega(s)$ and $\Delta P_{load}(s)$. Therefore, considering $P_{load}$ as an exogenous disturbance and setting $P_{load} = 0$,
+\begin{align*}
+	& sM\Delta\omega(s) = -\frac{R \Delta \omega(s)}{\tau s + 1}-D \Delta\omega(s)-\Delta P_{load}(s)\\
+	\implies & \left(sM + \frac{R}{\tau s +1}+D\right)\Delta \omega(s) = -\Delta P_{load}\\
+	\implies & \frac{\Delta \omega(s)}{\Delta P_{load}(s)} = -\frac{\tau s + 1}{sM(\tau s + 1)+R+(\tau s +1)D}\\
+	\implies & \frac{\Delta \omega(s)}{\Delta P_{load}(s)} = -\frac{\tau s +1}{\tau M s^2 + (M+\tau D)s+(R+D)}.
+\end{align*}
